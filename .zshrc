@@ -4,6 +4,9 @@
 ## ---------------------------------------------------------
 ## 一般 or 未分類
 ## ---------------------------------------------------------
+# パス
+export PATH="$HOME/bin:$HOME/.cask/bin:$PATH"
+
 # ビープ音を鳴らさないようにする
 setopt NO_beep
 
@@ -106,7 +109,7 @@ alias p='ps aux | head -1; ps aux | grep -i '
 alias free='free -m'
 alias df='df -h'
 alias h='history -E 1 | grep -i '
-alias rm='my_rm.sh'
+alias rm='my_rm'
 alias mv='mv -i'
 alias cp='cp -i'
 alias ll='ls -lhFa'
@@ -469,10 +472,25 @@ function tm {
     fi
 }
 
-function pps {
-    for `\ps aux | peco | awk '{ print $2 }'`
-  do
-    kill $pid
+function my_rm {
+    trash=/var/tmp/trash-${USER:-${USERNAME}}/`date +%Y%m%d%H%M%S_%N`
+    mkdir -p ${trash}
+
+    # ignore rm option
+    while [ $# -gt 0 ]; do
+	case $1 in
+	    -r)  shift;;
+	    -f)  shift;;
+	    -rf) shift;;
+	    -fr) shift;;
+	    *)   break;;
+	esac
+    done
+
+    while [ $# -gt 0 ]; do
+        dest=$(realpath "$1" | sed -e 's$/$!$g' -e 's/:/!/' -e 's/ /!/' -e 's/\\/!/')
+	mv "$1" "${trash}/${dest}"
+	shift
     done
 }
 
