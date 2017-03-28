@@ -5,7 +5,12 @@
 ## 一般 or 未分類
 ## ---------------------------------------------------------
 # パス
-export PATH="$HOME/bin:$HOME/.cask/bin:$PATH"
+export PATH="$HOME/local/bin:$HOME/bin:$HOME/closed/bin:$PATH"
+
+# Perl
+export PATH="$HOME/perl5/bin:$PATH"
+export PERL_CPANM_OPT="--local-lib=~/perl5/lib/perl5"
+export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
 
 # ビープ音を鳴らさないようにする
 setopt NO_beep

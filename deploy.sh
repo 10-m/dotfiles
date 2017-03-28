@@ -4,8 +4,10 @@ CURRENT=$(pwd)
 
 mkdir -p ~/backup/emacs
 mkdir -p ~/local/bin
+mkdir -p ~/local/config
 mkdir -p ~/close/bin
 mkdir -p ~/tmp
+touch ~/local/.abbrev_defs
 
 echo $SHELL | grep -q zsh
 if [ $? -ne 0 ]; then
