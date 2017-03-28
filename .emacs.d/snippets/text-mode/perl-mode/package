@@ -1,0 +1,18 @@
+#name : package ...
+# --
+
+package ${1:Module};
+
+my %_defaults = ();
+sub new {
+    my ($class, %args) = @_;
+    %args = (%_defaults, %args);
+    bless \%args, $class;
+}
+
+sub ${2:run} {
+    my $obj = shift;
+    $0
+}
+
+1;

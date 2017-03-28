@@ -1,0 +1,5 @@
+#name : use Data::Dumper;
+# --
+use Data::Dumper;
+
+sub D { print Dumper @_; }

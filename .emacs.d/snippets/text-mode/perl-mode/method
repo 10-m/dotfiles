@@ -1,0 +1,6 @@
+#new : sub method { ... }
+# --
+sub ${1:method} {
+    my ($self) = @_;
+    $0
+}

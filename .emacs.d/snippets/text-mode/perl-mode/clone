@@ -1,0 +1,6 @@
+#new : sub clone { ... }
+# --
+sub clone {
+    my ($self) = @_;
+    $0bless \@{$self}, ref $self;
+}

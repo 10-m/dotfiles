@@ -1,0 +1,31 @@
+#name : fp = fopen(file_name, "r");
+# --
+FILE *fp;
+char  buf[READ_BUF_LEN];
+
+fp = fopen(file_name, "r");
+if (NULL == fp) {
+    perror(file_name);
+    return;
+}
+
+while (!feof(fp)) {
+    ret = fgets(buf, sizeof(buf) - 1, fp);
+    if (ferror(fp)) {
+        perror(file_name);
+        fclose(fp);
+        return;
+    }
+    else if (NULL == ret) {
+        /* End of File */
+        break;
+    }
+    else {
+        printf("%s", buf);
+    }
+}
+
+if (0 != fclose(fp)) {
+    perror(file_name);
+    return;
+}

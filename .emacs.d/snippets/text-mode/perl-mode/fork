@@ -1,0 +1,15 @@
+#name : fork ...
+# --
+my $pid = fork;
+if ( !defined $pid ) {
+    die "fork";
+}
+$0
+if ($pid == 0) {
+    # Child
+    exit;
+}
+else {
+    # Parent
+    while (wait != -1) {};
+}

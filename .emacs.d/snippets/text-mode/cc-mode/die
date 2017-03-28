@@ -1,0 +1,15 @@
+#name : die()
+# --
+#include <errno.h>
+
+void
+die(const char *message)
+{
+    if (errno) {
+        perror(message);
+        exit(errno);
+    }
+    fprintf(stderr, "%s\n", message);
+    exit(1);
+}
+$0

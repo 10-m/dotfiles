@@ -1,0 +1,5 @@
+#name : say
+# --
+function say(arg) {
+    document.write(arg + '<br>');
+}

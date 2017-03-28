@@ -1,0 +1,4 @@
+#name : ARG1=${1:?"default value"}
+# --
+${1:ARG1}=\${${2:1}:-"${3:Arg$2 not set}"}
+$0

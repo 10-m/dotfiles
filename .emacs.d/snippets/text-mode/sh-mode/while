@@ -1,0 +1,8 @@
+#name : while (...) { ... }
+# --
+$0count=10
+while [ "$count" -gt 0 ];
+do
+    echo $count
+    count=\`expr $count - 1\`
+done

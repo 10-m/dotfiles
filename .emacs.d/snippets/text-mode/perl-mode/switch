@@ -1,0 +1,9 @@
+#name : switch ...
+# --
+${1:use feature 'switch';}
+given (${2:\$val}) {
+    when ($0) {
+    }
+    default {
+    }
+}

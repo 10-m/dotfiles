@@ -1,0 +1,10 @@
+#name : case ... esac
+# --
+case "\$${1:VAR}" in
+    $2)
+        $0
+        ;;
+    *)
+        echo "Unknown Value \$$1"
+        ;;
+esac

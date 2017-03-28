@@ -1,0 +1,9 @@
+#name : function usage () { ... }
+# expand-env: ((yas/indent-line 'fixed) (yas/wrap-around-region 'nil))
+# --
+function usage() {
+    cat 1>&2 << END_USAGE
+Usage: \$0 $0[-options] [etc...]
+END_USAGE
+}
+usage \$0

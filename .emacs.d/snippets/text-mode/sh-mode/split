@@ -1,0 +1,8 @@
+#name : split array
+# --
+IFS_ORIG=$IFS
+IFS=\$'${1: }'
+set -- \$${2:line}
+IFS=\${IFS_ORIG}
+${3:items}=("$@")
+$0

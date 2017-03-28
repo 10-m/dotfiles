@@ -1,0 +1,3 @@
+#name : YYYY”NMMŒŽDD“ú
+# --
+`(format-time-string "%Y”N%mŒŽ%d“ú")`

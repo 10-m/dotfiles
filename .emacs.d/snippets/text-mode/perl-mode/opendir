@@ -1,0 +1,8 @@
+#name : opendir ...
+# --
+my $dir = shift || '.';
+opendir my $dh, $dir or die "$!:$dir";
+for my $file (readdir $dh) {
+    print $file, $/;
+}
+closedir $dh or die "$!:$dir";

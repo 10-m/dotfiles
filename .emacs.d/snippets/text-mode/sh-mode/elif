@@ -1,0 +1,4 @@
+#name : elif then [ ... ]
+# --
+elif [ $1 ]; then
+    $0

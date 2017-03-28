@@ -1,0 +1,19 @@
+#name : ifstream fin(filename.c_str())
+# --
+ifstream fin(filename.c_str());
+if (!fin) {
+    cerr << "Can't open file : " << filename << endl;
+    return;
+}
+
+char buf[READ_BUF_LEN];
+while (!fin.eof()) {
+    fin.getline(buf, sizeof(buf) - 1);
+    if (fin.fail()) {
+        cerr << "Can't read file: " << filename << endl;
+        return;
+    }
+    cout << buf << endl;
+}
+
+fin.close();

@@ -1,0 +1,9 @@
+#name : open ... close
+# --
+my $file = shift || '${1:tmp.txt}';
+open my $fh, '<', $file or die "$!:$file";
+while (my $line = <$fh>) {
+    $line =~ s/\x0D?\x0A?$//;
+    $0print $line, "\n";
+}
+close $fh or die "$!:$file";

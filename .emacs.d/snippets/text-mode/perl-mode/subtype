@@ -1,0 +1,8 @@
+#name : subtype ...
+# --
+subtype '${1:TypeName}'
+    => as '${2:Int}',
+    => where { ${3:\$_ % 3 == 0} }
+    => message {${4:"This number {\$_} is not divisible by three!"}}
+;
+$0

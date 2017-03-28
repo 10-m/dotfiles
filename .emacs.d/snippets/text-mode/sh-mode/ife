@@ -1,0 +1,7 @@
+#name : if [ ... ] then ... else ... fi
+# --
+if [ $1 ]; then
+    $0
+else
+    
+fi

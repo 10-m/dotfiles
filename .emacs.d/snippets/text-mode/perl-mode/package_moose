@@ -1,0 +1,11 @@
+#name : package_moose ...
+# --
+package ${1:Module};
+use Moose;
+use MooseX::AttributeHelpers;
+$0
+
+__PACKAGE__->meta->make_immutable;
+no Moose;
+
+1;

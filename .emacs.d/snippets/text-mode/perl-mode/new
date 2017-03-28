@@ -1,0 +1,6 @@
+#new : sub new { ... }
+# --
+sub new {
+    my ($class, @args) = @_;
+    $0bless \@args, $class;
+}

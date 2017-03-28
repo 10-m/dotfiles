@@ -1,0 +1,3 @@
+#name : line =~ s/\x0D?\x0A?$//
+# --
+$line =~ s/\x0D?\x0A?$//;

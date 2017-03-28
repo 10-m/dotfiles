@@ -1,0 +1,3 @@
+#name : hh:mm
+# --
+`(format-time-string "%T")`

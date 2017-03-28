@@ -1,0 +1,7 @@
+#name : coerce ...
+# --
+coerce '${1:TypeName}'
+    => form '${2:Int}',
+    => via { ${3:\$_ - \$_ % 3} }
+;
+$0

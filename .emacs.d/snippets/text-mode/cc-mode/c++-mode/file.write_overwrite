@@ -1,0 +1,16 @@
+#name : ofstream fout(filename.c_str(), ios::out)
+# --
+ofstream fout(filename.c_str(), ios::out);
+if (!fout) {
+    cerr << "Can't open file : " << filename << endl;
+    return;
+}
+
+// stream
+fout << "Hello! " << endl;
+
+// block
+string str("World");
+fout.write(str.c_str(), str.strlen());
+
+fout.close();

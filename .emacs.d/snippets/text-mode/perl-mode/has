@@ -1,0 +1,14 @@
+#name : has ... 
+# --
+has '${1:member}' => (
+    metaclass => '$2',
+    is        => '${3:rw}',
+    isa       => '${4:Str}',
+    default   => '${5:}',
+    required  => '${6:1}',
+    provides  => {
+        $7
+    }
+);
+
+$0

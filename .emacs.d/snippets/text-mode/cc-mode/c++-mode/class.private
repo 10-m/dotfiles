@@ -1,0 +1,8 @@
+#name : class ... : private ... { ... }
+# --
+class ${1:Name} : private $2 {
+public:
+    ${1:$(yas/substr text "[^: ]*")}($3);
+    virtual ~${1:$(yas/substr text "[^: ]*")}();
+private:
+};

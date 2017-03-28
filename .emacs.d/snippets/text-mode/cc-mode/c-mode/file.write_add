@@ -1,0 +1,16 @@
+#name : fp = fopen(file_name, "w");
+# --
+FILE *fp;
+
+fp = fopen(file_name, "a+");
+if (NULL == fp) {
+    perror(file_name);
+    return;
+}
+
+fprintf(fp, "test\n");
+
+if (0 != fclose(fp)) {
+    perror(file_name);
+    return;
+}

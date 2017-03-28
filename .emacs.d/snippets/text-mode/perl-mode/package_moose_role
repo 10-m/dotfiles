@@ -1,0 +1,7 @@
+#name : package_moose_role ...
+# --
+package ${1:Module};
+use Moose::Role;
+requires qw($2);
+no Moose::Role;
+1;

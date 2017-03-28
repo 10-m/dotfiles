@@ -1,0 +1,4 @@
+#name : say ...
+# --
+${1:use feature 'say';}
+say $0

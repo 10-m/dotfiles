@@ -1,0 +1,26 @@
+#name : fork()
+# --
+$0/* #include <unistd.h> */
+/* #include <sys/wait.h> */
+
+pid_t pid;
+
+pid = fork();
+if (pid < 0) {
+    perror("fork");
+    return;
+}
+
+if (pid == 0) {
+    /* Child */
+    printf("Child: Start child\n");
+    sleep(3);
+    printf("Child: End Child\n");
+   _exit(0); /* Instead of exit()  */
+}
+else {
+    /* Parent */
+    printf("Parent: Wait to fnish child\n");
+    wait(NULL);
+    printf("Parent: catch to fnish child\n");
+}
