@@ -40,12 +40,8 @@
 ;; devel
 (load "~/.emacs.d/devel.el")
 
-;; enable visual feedback on selections
-;(setq transient-mark-mode t)
-
-;; default to better frame titles
-(setq frame-title-format
-      (concat  "%b - emacs@" (system-name)))
+;; display
+(load "~/.emacs.d/display")
 
 ;; default to unified diffs
 (setq diff-switches "-u")

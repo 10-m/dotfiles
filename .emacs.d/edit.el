@@ -8,7 +8,7 @@
    (list  current-prefix-arg))
   (let ((beg (region-beginning)) (end (region-end)))
     (if flag
-	(delete-region beg end)
+        (delete-region beg end)
       (kill-region beg end))))
 
 ;; C-u C-w で kill-ringに保存せずにリージョン削除
