@@ -11,16 +11,16 @@
 ;; installed packages.  Don't delete this line.  If you don't want it,
 ;; just comment it out by adding a semicolon to the start of the line.
 ;; You may delete these explanatory comments.
-(package-initialize)
+;;(package-initialize)
 
 (setq inhibit-default-init t)
-
-;; パッケージ管理
-(load "~/.emacs.d/my_package.el")
 
 ;; ローカル設定
 (load "~/local/local.el")
 (load "~/close/close.el")
+
+;; パッケージ管理
+(load "~/.emacs.d/my_package.el")
 
 ;; 言語設定
 (load "~/.emacs.d/lang.el")
@@ -41,7 +41,10 @@
 (load "~/.emacs.d/devel.el")
 
 ;; display
-(load "~/.emacs.d/display")
+(load "~/.emacs.d/display.el")
+
+;; history
+(load "~/.emacs.d/history.el")
 
 ;; default to unified diffs
 (setq diff-switches "-u")

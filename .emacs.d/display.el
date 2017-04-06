@@ -219,40 +219,16 @@ See `font-lock-add-keywords' and `font-lock-defaults'."
 ;; ---------------------------------------------------------
 (require 'whitespace)
 (global-whitespace-mode 1)
-(setq whitespace-style '(face           ; faceで可視化  
-                         trailing       ; 行末
-                         tabs           ; タブ
-                         ;;empty        ; 先頭/末尾の空行
+(setq whitespace-style '(face
                          spaces
-                         space-mark     ; 表示のマッピング
+                         space-mark
+                         tabs
                          tab-mark
                          ))
 (setq whitespace-space-regexp "\\( +\\|\u3000+\\)")
 (setq whitespace-display-mappings
-      '((tab-mark ?\t [?\u00BB ?\t] [?\\ ?\t])
-        (space-mark ?\u3000 [?\u25a1])))
-
-;; ---------------------------------------------------------
-;; EOFを表示
-;; ---------------------------------------------------------
-(defun my-mark-eof ()
-  (let ((existing-overlays (overlays-in (point-max) (point-max)))
-        (eof-mark (make-overlay (point-max) (point-max) nil t t))
-        (eof-text "[EOF]"))
-    ;; 旧EOFマークを削除
-    (dolist (next-overlay existing-overlays)
-      (if (overlay-get next-overlay 'eof-overlay)
-          (delete-overlay next-overlay)))
-    ;; 新規EOF マークの表示
-    (unless (= (point) (point-max))
-      (put-text-property 0 (length eof-text)
-                         'face '(foreground-color . "slate gray") eof-text)
-      (overlay-put eof-mark 'eof-overlay t)
-      (overlay-put eof-mark 'after-string eof-text))))
-
-(defun my-hook-eof ()
-  ;; 下記2行が必要かどうか要検討
-  (add-hook 'pre-command-hook 'my-mark-eof nil t)
-  (add-hook 'post-command-hook 'my-mark-eof nil t))
-
-(add-hook 'find-file-hooks 'my-hook-eof)
+        '((space-mark ?\u3000 [?\u25a1])))
+(set-face-attribute 'whitespace-tab nil
+                    :foreground "blue"
+                    :background "blue"
+                    :underline nil)

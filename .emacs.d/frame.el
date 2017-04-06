@@ -8,14 +8,14 @@
   "Swap two screen,leaving cursor at current window."
   (interactive)
   (let ((thiswin (selected-window))
-	(nextbuf (window-buffer (next-window))))
+        (nextbuf (window-buffer (next-window))))
     (set-window-buffer (next-window) (window-buffer))
     (set-window-buffer thiswin nextbuf)))
 (defun swap-screen-with-cursor ()
   "Swap two screen,with cursor in same buffer."
   (interactive)
   (let ((thiswin (selected-window))
-	(thisbuf (window-buffer)))
+        (thisbuf (window-buffer)))
     (other-window 1)
     (set-window-buffer thiswin (window-buffer))
     (set-window-buffer (selected-window) thisbuf)))
@@ -33,7 +33,7 @@
     (delete-other-windows)
 
     (if (= (window-height) before-height)
-	(split-window-vertically)
+        (split-window-vertically)
       (split-window-horizontally))
 
     (switch-to-buffer-other-window other-buf)
@@ -52,13 +52,6 @@
 ;; ---------------------------------------------------------
 ;; 分割情報を保存
 ;; ---------------------------------------------------------
-;; [インストール]
-;; elscreen は APEL ライブラリが必要かもしれない
-;; wget http://kanji.zinbun.kyoto-u.ac.jp/~tomo/lemi/dist/apel/apel-10.7.tar.gz
-;; tar xvzf apel-10.7.tar.gz
-;; mkdir /usr/share/emacs/site-list/apel
-;; cp apel-10.7/* /usr/share/emacs/site-list/apel
-;;
 ;; [使い方]
 ;; C-t 0-9:指定した番号のウィンドウへ移動， C-t 0 なら， 0 番へ移動．
 ;;  ただし，ウィンドウを予め作成しておく必要がある．
@@ -72,25 +65,27 @@
 ;; Color
 (defface elscreen-tab-background-face
   '((((type x w32 mac) (class color))
-     :background "Gray50")
+     :background "Gray")
     (((class color))
-     (:background "white" :underline nil)))
+     (:background "Gray" :underline nil)))
   "*Face to fontify background of tab line."
   :group 'elscreen)
 
 (defface elscreen-tab-current-screen-face
   '((((class color))
-     (:background "cyan" :foreground "black" :underline nil)))
+     (:background "Black" :foreground "Gray" :underline nil)))
   "*Face for current screen tab."
   :group 'elscreen)
 
 (defface elscreen-tab-other-screen-face
   '((((type x w32 mac) (class color))
-     :background "Gray85" :foreground "Gray50")
+     :background "Gray" :foreground "Black")
     (((class color))
-     (:background "white" :foreground "black" :underline nil)))
+     (:background "Gray" :foreground "Black" :underline nil)))
   "*Face for tabs other than current screen one."
   :group 'elscreen)
+
+(elscreen-start)
 
 ;; prefix key
 (elscreen-set-prefix-key "\C-t")
@@ -151,8 +146,8 @@
 ;; 外観の変更
 (setq ibuffer-formats
       '((mark modified read-only " " (name 30 30)
-	      " " (size 6 -1) " " (mode 16 16) " " filename)
-	(mark " " (name 30 -1) " " filename)))
+              " " (size 6 -1) " " (mode 16 16) " " filename)
+        (mark " " (name 30 -1) " " filename)))
 
 ;; Gをタイプするとバッファリストを絞り込める
 ;; gで元に戻せる。というより再表示
