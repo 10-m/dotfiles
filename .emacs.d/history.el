@@ -134,10 +134,9 @@
 (setq delete-old-versions t)
 
 ;; ---------------------------------------------------------
-;; バッファの保存
+;; ファイルの自動保存
 ;; ---------------------------------------------------------
-; 30分ごとにbufferを保存
-(run-with-idle-timer 1800 t 'save-current-configuration)
+;; M-x recover-this-file 復元
 
 ;; ---------------------------------------------------------
 ;; 履歴の保存
@@ -181,7 +180,6 @@
 ;; ---------------------------------------------------------
 ;; recentfを拡張
 ;; ---------------------------------------------------------
-;; http://d.hatena.ne.jp/rubikitch/20091224/recentf
 ;; ディレクトリも 対象とする
 ;; buffer に切り替えたときもソートする
 (require 'recentf-ext)
@@ -190,50 +188,46 @@
 ;; Migemo
 ;; ---------------------------------------------------------
 ;; [インストール]
-;; qkc をインストール
+;; git clone https://github.com/koron/cmigemo
+;; cd cmigemo
+;; ./configure --prefix=$HOME/local
+;; make gcc
+;; make gcc-dict
+;; make gcc-install
+;; export LD_LIBRARY_PATH=$HOME/local/lib:$LD_LIBRARY_PATH
+;;
+;; 以前のやり方
+;;; qkc をインストール
 ;; http://hp.vector.co.jp/authors/VA000501/qkcc100.zip
 ;; make qkc; パスの通ったところにコピー
-;; C/migemo をインストール
-;; http://www.kaoriya.net/dist/cmigemo-1.2.tar.bz2
-;; make gcc; make gcc-dict; make gcc-install
 ;;
 ;; [使い方]
 ;; M-m で通常検索と入れ替え
 
 ;; 基本設定
 (when (executable-find "cmigemo")
-  (setq migemo-command "cmigemo")
-  (setq migemo-options '("-q" "-e")))
-
-;; migemo-dict のパスを指定
-(cond
- (running-Cygwin
-  ;; 辞書の文字コードを指定．
+  (setq migemo-command (executable-find "cmigemo"))
+  (setq migemo-options '("-q" "--emacs"))
+  (setq migemo-dictionary (expand-file-name "~/local/share/migemo/utf-8/migemo-dict"))
+  (setq migemo-user-dictionary nil)
+  (setq migemo-regex-dictionary nil)
   (setq migemo-coding-system 'utf-8)
-  (setq migemo-dictionary "c:/home/dict/migemo/utf-8/migemo-dict"))
- (running-UNIX
-  ;; 辞書の文字コードを指定．
-;;   (setq migemo-coding-system 'euc-jp-unix)
-;;   (setq migemo-dictionary "/usr/share/migemo/migemo-dict")
-  ))
 
-(setq migemo-user-dictionary nil)
-(setq migemo-regex-dictionary nil)
+  ;; キャッシュ機能を利用する
+  (setq migemo-use-pattern-alist t)
+  (setq migemo-use-frequent-pattern-alist t)
+  (setq migemo-pattern-alist-length 1024)
+  (setq migemo-pattern-alist-file (expand-file-name "~/tmp/emacs/migemo-pattern"))
 
-;; キャッシュ機能を利用する
-(setq migemo-use-pattern-alist t)
-(setq migemo-use-frequent-pattern-alist t)
-(setq migemo-pattern-alist-length 1024)
-(setq migemo-pattern-alist-file "~/hist/.migemo-pattern")
+  (load-library "migemo")
 
-(load-library "migemo")
+  ;; 起動時に初期化も行う
+  (migemo-init)
 
-;; 起動時に初期化も行う
-(migemo-init)
-
-(add-hook 'isearch-mode-hook
-    (lambda ()
-      (define-key isearch-mode-map "\M-m" 'migemo-isearch-toggle-migemo)))
+  (add-hook 'isearch-mode-hook
+            (lambda ()
+              (define-key isearch-mode-map "\M-m" 'migemo-isearch-toggle-migemo)))
+  )
 
 ;; 即時検索できない問題への対処
 ;; (migemo-pattern-alist-clear)
@@ -304,7 +298,7 @@
 ;; ---------------------------------------------------------
 ;; auto-save-list
 ;; ---------------------------------------------------------
-(setq auto-save-list-file-prefix "~/backup/emacs/auto-save-list/.saves-")
+(setq auto-save-list-file-prefix "~/tmp/emacs/auto-save-list/saves-")
 
 ;; ---------------------------------------------------------
 ;; hs-minor-mode

@@ -31,6 +31,10 @@
 (add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
 ;;(el-get 'sync)
 
+;; (add-to-list 'load-path "~/tmp/emacs/mb-url-master")
+;; (require 'mb-url-http)
+;; (advice-add 'url-http :override 'mb-url-http-curl)
+
 (el-get-bundle popup)
 (el-get-bundle auto-complete)
 (el-get-bundle elscreen)
@@ -42,3 +46,5 @@
 (el-get-bundle expand-region)
 (el-get-bundle s)
 (el-get-bundle f)
+(el-get-bundle recentf-ext)
+(el-get-bundle migemo)
