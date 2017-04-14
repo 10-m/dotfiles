@@ -237,6 +237,62 @@ function search() {
             ;;
     esac > /dev/null
 }
+
+## ---------------------------------------------------------
+## peco
+## ---------------------------------------------------------
+# Ctrl-spaceで複数選択
+
+# ヒストリ
+# http://qiita.com/tmsanrinsha/items/72cebab6cd448704e366
+function peco-select-history() {
+    local selection="$({
+        dirs -v | sed 's/^/DIR:/g';
+        history -nr 1 | awk '!a[$0]++' | sed 's/^/HIST:/g';
+        } | peco --prompt '[DIR:/PROC:]')"
+    if [[ "$selection" =~ '^DIR:' ]]; then
+        local back="$(echo $selection | sed 's/^DIR://g' | cut -f 1)"
+        cd +"${back}" > /dev/null
+    elif [[ "$selection" =~ '^HIST:' ]]; then
+        local BUFFER="$(echo $selection | sed 's/^HIST://g')"
+        CURSOR=$#BUFFER # カーソルを文末に移動
+    fi
+    zle reset-prompt
+}
+zle -N peco-select-history
+bindkey '^R' peco-select-history
+
+# popd
+alias pb='cd +"$(dirs -v | peco | cut -f 1)"'
+
+# ディレクトリ
+function pd {
+    while : ;do
+        local dir="$(\ls -a -F | peco | perl -pe 's/\n/ /g; s/ +$//; s{/$}{}g')"
+        if [ -z "$dir" ]; then
+            break
+        elif [ -d "$dir" ]; then
+            cd "$dir"
+        else
+            print -z "$dir"
+            break
+        fi
+    done
+}
+
+# プロセス
+function pp {
+    print -z "$(ps aux | peco | awk '{print $2}' | perl -pe 's/\n/ /g')"
+}
+
+# grep
+function pg {
+    local regex="$1"
+    shift
+    local file="$(grep -H -n $regex "$@" | peco | awk -F: '{print "emacsclient +" $2, $1}')"
+    print -z "$file"
+}
+
 ## ---------------------------------------------------------
 ## 作業用の一時ディレクトリを作って勝手に移動
 ## ---------------------------------------------------------
@@ -276,19 +332,6 @@ setopt AUTO_PUSHD
 
 # 重複した pushd を削除
 setopt PUSHD_IGNORE_DUPS
-
-# 選択して popd
-# "dirs -v"で、ディレクトリスタックを表示できる。
-# read でキーボードから数字を読み取り
-# cd コマンドでそのディレクトリに移動する。
-alias gd='cd +"$(dirs -v | peco | cut -f 1)"'
-
-function pd {
-    local dir="$(\ls -a -d */ | sed 's!/$!!' | peco )"
-    if [ ! -z "$dir" ] ; then
-        cd "$dir"
-    fi
-}
 
 ## ---------------------------------------------------------
 ## ディレクトリ ブックマーク

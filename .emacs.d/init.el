@@ -37,14 +37,17 @@
 ;; edit
 (load "~/.emacs.d/edit.el")
 
-;; devel
-(load "~/.emacs.d/devel.el")
-
 ;; display
 (load "~/.emacs.d/display.el")
 
 ;; history
 (load "~/.emacs.d/history.el")
+
+;; clipboard
+(load "~/.emacs.d/clipboard.el")
+
+;; devel
+(load "~/.emacs.d/devel.el")
 
 ;; default to unified diffs
 (setq diff-switches "-u")
