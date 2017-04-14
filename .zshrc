@@ -189,7 +189,7 @@ setopt hist_ignore_dups
 setopt hist_ignore_space
 
 # インクリメンタルサーチ(正規表現もつかえる)
-bindkey '^R' history-incremental-pattern-search-backward
+# bindkey '^R' history-incremental-pattern-search-backward
 bindkey '^S' history-incremental-pattern-search-forward
 
 # 検索
