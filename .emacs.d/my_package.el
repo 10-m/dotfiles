@@ -48,3 +48,4 @@
 (el-get-bundle f)
 (el-get-bundle recentf-ext)
 (el-get-bundle migemo)
+(el-get-bundle mew)

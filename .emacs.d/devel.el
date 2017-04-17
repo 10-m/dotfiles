@@ -248,21 +248,6 @@
          (define-key (current-local-map) (kbd "C-t") nil)
          ))
 
-;; Meadow + Cygwin 環境用の gtags-visit-rootdir
-;; ディレクトリ補完なし
-(defun my-gtags-visit-rootdir ()
-  (interactive)
-  (let (cyg_dir drive path)
-    (cond
-     (running-UNIX
-      (gtags-visit-rootdir))
-     (running-Meadow
-      (setq drive (substring default-directory 0 1))
-      (setq path (substring default-directory 2))
-      (setq cyg_dir (format "/cygdrive/%s%s" drive path))
-      (setq cyg_dir (read-from-minibuffer "GTAGSROOT: " cyg_dir))
-      (setenv "GTAGSROOT" cyg_dir)))))
-
 ;; ---------------------------------------------------------
 ;; バージョン管理
 ;; ---------------------------------------------------------

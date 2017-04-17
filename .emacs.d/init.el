@@ -46,6 +46,9 @@
 ;; clipboard
 (load "~/.emacs.d/clipboard.el")
 
+;; mail
+(load "~/.emacs.d/mail.el")
+
 ;; devel
 (load "~/.emacs.d/devel.el")
 
