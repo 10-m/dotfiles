@@ -20,7 +20,6 @@
 ;; http://www.bookshelf.jp/cgi-bin/goto.cgi?file=meadow&node=repeat
 ;; 例えば, C-k とした後で, C-x z とすると, 直前のコマンド C-k が実行されます.
 ;; その後, z を押すと, 連続して C-k が実行されます.
-
 ;; F5 に割り当ててしまう。
 (global-set-key [f5] 'repeat)
 
@@ -67,21 +66,21 @@
 
   (if (or my-forward-word-flag (eq last-command 'set-mark-command))
       (progn
-	;; Mark が起点のときは、フラグを立てて通常の forward-word
-	(setq my-forward-word-flag t)
-	(forward-word arg))
+    ;; Mark が起点のときは、フラグを立てて通常の forward-word
+    (setq my-forward-word-flag t)
+    (forward-word arg))
     (if (looking-at ".$")
-	;; 行末時は、単語の先頭へ移動
-	(re-search-forward "\\W\\b")
+    ;; 行末時は、単語の先頭へ移動
+    (re-search-forward "\\W\\b")
       (if (looking-at "\\cj")
-	  (progn
-	    ;; 日本語の途中のときは、通常の forward-word。日本語の文節移動
-	    (forward-word arg)
-	    (if (looking-at "\\(。\\|、\\|．\\|，\\)")
-		;; 。、．，で止まったときは、その後ろへ移動
-		(re-search-forward "\[。、．，\]+")))
-	;; 行末以外または日本語の途中以外のときは、行末または単語の先頭に移動
-	(re-search-forward "\\(.$\\|\\W\\b\\)")))))
+      (progn
+        ;; 日本語の途中のときは、通常の forward-word。日本語の文節移動
+        (forward-word arg)
+        (if (looking-at "\\(。\\|、\\|．\\|，\\)")
+        ;; 。、．，で止まったときは、その後ろへ移動
+        (re-search-forward "\[。、．，\]+")))
+    ;; 行末以外または日本語の途中以外のときは、行末または単語の先頭に移動
+    (re-search-forward "\\(.$\\|\\W\\b\\)")))))
 (global-set-key "\M-f" 'my-forward-word)
 
 ;; ---------------------------------------------------------
@@ -102,22 +101,22 @@
 (setq my-keyjack-mode-map (make-sparse-keymap))
 
 (mapcar (lambda (x)
-	  ;; (elscreen-set-prefix-key "\C-t")
-	  (define-key my-keyjack-mode-map (car x) (cdr x))
-	  (global-set-key (car x) (cdr x)))
-	'(
-	  ;; M-o で他のウィンドウに移動
-	  ("\M-o" . my-other-window)
+      ;; (elscreen-set-prefix-key "\C-t")
+      (define-key my-keyjack-mode-map (car x) (cdr x))
+      (global-set-key (car x) (cdr x)))
+    '(
+      ;; M-o で他のウィンドウに移動
+      ("\M-o" . my-other-window)
 
-	  ;; M-g で goto-line
-	  ("\M-g" . goto-line)
+      ;; M-g で goto-line
+      ("\M-g" . goto-line)
 
-	  ;; C-c ; で anything
-	  ("\C-c;" . anything-migemo)
-	  ))
+      ;; C-c ; で anything
+      ("\C-c;" . anything-migemo)
+      ))
 
 (easy-mmode-define-minor-mode my-keyjack-mode "Grab keys"
-			      t " Keyjack" my-keyjack-mode-map)
+                  t " Keyjack" my-keyjack-mode-map)
 
 (add-hook 'minibuffer-setup-hook (lambda () (my-keyjack-mode -1)))
 
@@ -129,8 +128,8 @@
   (interactive "p")
   (if (called-interactively-p "interactive")
       (condition-case nil
-	  (line-move (- arg))
-	((beginning-of-buffer end-of-buffer)))
+      (line-move (- arg))
+    ((beginning-of-buffer end-of-buffer)))
     (line-move (- arg)))
   nil)
 
@@ -189,17 +188,17 @@
 
 ;; 色
 (add-hook 'ediff-prepare-buffer-hook
-	  '(lambda ()
-	     (set-face-foreground 'ediff-odd-diff-A "darkblue")
-	     (set-face-background 'ediff-odd-diff-A "white")
-	     (set-face-foreground 'ediff-odd-diff-B "black")
-	     (set-face-background 'ediff-odd-diff-B "white")
-	     ))
+      '(lambda ()
+         (set-face-foreground 'ediff-odd-diff-A "darkblue")
+         (set-face-background 'ediff-odd-diff-A "white")
+         (set-face-foreground 'ediff-odd-diff-B "black")
+         (set-face-background 'ediff-odd-diff-B "white")
+         ))
 
 ;; ---------------------------------------------------------
 ;; Occur
 ;; ---------------------------------------------------------
-;; M-x occur	        バッファに対する検索結果を一覧表示
+;; M-x occur            バッファに対する検索結果を一覧表示
 ;; e                    編集モードに移行
 ;; M-x multi-occur      複数バッファを検索
 ;; M-x multi-occur-in-matching-buffers 正規表現でバッファを指定
@@ -251,14 +250,14 @@ When second argument is 't', global variable is modified"
   (interactive "nTab Width:\nP")
   (if global
       (progn (setq default-tab-width width)
-	     (setq tab-stop-list nil))
+         (setq tab-stop-list nil))
     (set (make-local-variable 'tab-width) width)
     (set (make-local-variable 'tab-stop-list) nil))
   (let ((n width)
-	(max 1024))
+    (max 1024))
     (while (<= n max)
       (setq tab-stop-list (nconc tab-stop-list (list n))
-	    n (+ n width))))
+        n (+ n width))))
   t)
 
 ;; タブ幅を 4 にする
@@ -334,16 +333,16 @@ When second argument is 't', global variable is modified"
 (defvar text-adjust-save-mode nil)
 (if (not (assq 'text-adjust-save-mode minor-mode-alist))
     (setq minor-mode-alist
-	  (cons '(text-adjust-save-mode " text-adjust")
-		minor-mode-alist)))
+      (cons '(text-adjust-save-mode " text-adjust")
+        minor-mode-alist)))
 
 (defun text-adjust-save-mode (&optional arg)
   "text-adjust-save minor-mode"
   (interactive)
   (if text-adjust-save-mode
       (progn
-	(remove-hook 'before-save-hook 'text-adjust-space-buffer)
-	(setq text-adjust-save-mode nil))
+    (remove-hook 'before-save-hook 'text-adjust-space-buffer)
+    (setq text-adjust-save-mode nil))
     (add-hook 'before-save-hook 'text-adjust-space-buffer)
     (setq text-adjust-save-mode t)))
 
@@ -361,20 +360,20 @@ When second argument is 't', global variable is modified"
       (previous-line 1)
       (beginning-of-line)
       (if (looking-at "^[ \t]*")
-	  (setq indent
-		(buffer-substring
-		 (point) (re-search-forward "^[ \t]*")))
-	(setq indent "")))
+      (setq indent
+        (buffer-substring
+         (point) (re-search-forward "^[ \t]*")))
+    (setq indent "")))
     (beginning-of-line)
     (insert indent)))
 (defun my-text-adjust-space ()
   (interactive)
   (save-excursion (mark-paragraph)
-		  (text-adjust-space-region (region-beginning) (region-end))))
+          (text-adjust-space-region (region-beginning) (region-end))))
 (defun my-newline-and-indent ()
   (interactive)
   (delete-horizontal-space t)
-					;  (my-text-adjust-space)
+                    ;  (my-text-adjust-space)
   (newline)
   (my-indent-relative))
 (global-set-key "\C-m" 'my-newline-and-indent)
@@ -455,8 +454,8 @@ When second argument is 't', global variable is modified"
 
 ;; 自動展開をしない
 (add-hook 'pre-command-hook
-	  (lambda ()
-	    (setq abbrev-mode nil)))
+      (lambda ()
+        (setq abbrev-mode nil)))
 
 ;; ---------------------------------------------------------
 ;; yasnippest
@@ -470,10 +469,10 @@ When second argument is 't', global variable is modified"
 ;; http://d.hatena.ne.jp/rubikitch/20080729/1217284678
 (setq yas/buffer-local-condition
       '(or (not (memq (get-text-property (point) 'face)
-		      '(font-lock-comment-face
-			font-lock-doc-face
-			font-lock-string-face)))
-	   '(require-snippet-condition . force-in-comment)))
+              '(font-lock-comment-face
+            font-lock-doc-face
+            font-lock-string-face)))
+       '(require-snippet-condition . force-in-comment)))
 
 ;; ディレクトリ分ける
 ;; http://d.hatena.ne.jp/antipop/20080321/1206090430
@@ -481,8 +480,8 @@ When second argument is 't', global variable is modified"
     (make-directory (expand-file-name "~/local/snippets")))
 (setq yas/root-directory
       (list (expand-file-name "~/.emacs.d/el-get/yasnippet/snippets")
-	    (expand-file-name "~/local/snippets")
-	    (expand-file-name "~/.emacs.d/snippets")))
+        (expand-file-name "~/local/snippets")
+        (expand-file-name "~/.emacs.d/snippets")))
 
 ;; face
 (set-face-foreground 'yas/field-highlight-face "white")
