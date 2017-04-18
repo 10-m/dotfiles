@@ -49,6 +49,9 @@
 ;; mail
 (load "~/.emacs.d/mail.el")
 
+;; shell
+(load "~/.emacs.d/shell.el")
+
 ;; devel
 (load "~/.emacs.d/devel.el")
 
