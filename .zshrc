@@ -8,7 +8,7 @@
 export PATH="$HOME/local/bin:$HOME/bin:$HOME/closed/bin:$PATH"
 
 # Perl
-export PATH="$HOME/perl5/bin:$PATH"
+export PATH="$HOME/perl5/lib/perl5/bin:$PATH"
 export PERL_CPANM_OPT="--local-lib=~/perl5/lib/perl5"
 export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
 
@@ -504,19 +504,6 @@ function pscan {
     # nmap -nsP --host-timeout 10 "$1" | awk '{if($1=="Host") print $2 }';
     # nmap -nsP "$1" | awk '{if($1=="Host") print $2 }';
     nmap -nsP "$1"
-}
-
-function tm {
-    if [ $(tmux ls | wc -l) -eq 0 ] ; then
-        tmux
-    elif [ $(tmux ls | wc -l) -eq 1 ] ; then
-        tmux a -t $(tmux ls | cut -d: -f 1)
-    else
-	session=$(tmux ls | peco | cut -d: -f 1)
-	if [ -n "$session" ] ; then
-            tmux a -t "$session"
-	fi
-    fi
 }
 
 function my_rm {

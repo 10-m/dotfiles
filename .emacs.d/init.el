@@ -34,11 +34,14 @@
 ;; frame
 (load "~/.emacs.d/frame.el")
 
+;; move
+(load "~/.emacs.d/move.el")
+
 ;; edit
 (load "~/.emacs.d/edit.el")
 
-;; display
-(load "~/.emacs.d/display.el")
+;; view
+(load "~/.emacs.d/view.el")
 
 ;; history
 (load "~/.emacs.d/history.el")
@@ -52,11 +55,23 @@
 ;; shell
 (load "~/.emacs.d/shell.el")
 
+;; completion
+(load "~/.emacs.d/completion.el")
+
+;; find
+(load "~/.emacs.d/find.el")
+
+;; template
+(load "~/.emacs.d/auto-insert.el")
+
+;; tool
+(load "~/.emacs.d/tool.el")
+
 ;; devel
 (load "~/.emacs.d/devel.el")
 
-;; default to unified diffs
-(setq diff-switches "-u")
+;; perl
+(load "~/.emacs.d/devel-perl")
 
 ;; always end a file with a newline
 ;(setq require-final-newline 'query)

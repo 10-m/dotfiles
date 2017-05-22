@@ -42,6 +42,8 @@
   (scroll-bar-mode t)
   (scroll-bar-mode 'right))
 
+(require 'tool-bar)
+
 ;; ツールバーを表示しない
 (tool-bar-mode 0)
 

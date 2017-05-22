@@ -157,7 +157,12 @@
 ;; ファイル履歴
 ;; ---------------------------------------------------------
 ;; M-x recenf-open-files
+
+;; 保存場所
+(setq recentf-save-file "~/tmp/emacs/recentf")
+
 (require 'recentf)
+(require 'recentf-ext)
 
 ;; 存在しないファイルはcleanupしない
 (setq recentf-auto-cleanup 'never)
@@ -167,9 +172,6 @@
 
 ;; 保存件数
 (setq recentf-max-saved-items 300)
-
-;; 保存場所
-(setq recentf-save-file "~/tmp/emacs/recentf")
 
 (recentf-mode 1)
 
@@ -275,25 +277,6 @@
      (and (not isearch-forward) isearch-other-end
           (goto-char isearch-other-end))
      (buffer-substring-no-properties (point) (progn (forward-word 1) (point))))))
-
-;; ---------------------------------------------------------
-;; iswitchb バッファの切換えを楽にする
-;; ---------------------------------------------------------
-;; [使い方]
-;;! C-x b とすると，バッファの一覧がミニバッファに表示
-;;! C-s ， C-r でバッファの選択を切り替え
-(iswitchb-mode 1)
-
-;; iswitchb で migemo
-(setq iswitchb-regexp t)
-(setq iswitchb-use-migemo-p t)
-(defadvice iswitchb-get-matched-buffers
-  (before iswitchb-use-migemo activate)
-  "iswitchb で migemo"
-  (when iswitchb-use-migemo-p
-    (ad-set-arg
-     0 (migemo-get-pattern
-        (ad-get-arg 0)))))
 
 ;; ---------------------------------------------------------
 ;; auto-save-list

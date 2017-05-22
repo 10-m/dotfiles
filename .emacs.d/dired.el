@@ -38,19 +38,19 @@
 (defun my-dired-backup (&optional flag)
   (interactive (list  current-prefix-arg))
   (let* ((files (dired-get-marked-files))
-	 (date (format-time-string "%Y%m%d-%H%M%S"))
-	 (dir (expand-file-name "~/backup/emacs")))
+     (date (format-time-string "%Y%m%d-%H%M%S"))
+     (dir (expand-file-name "~/backup/emacs")))
     (if (not (file-directory-p dir))
-	(make-directory dir))
+    (make-directory dir))
     (mapc '(lambda (file)
-	     (let ((backup (format "%s_%s_bak.%s"
-				   (file-name-sans-extension file)
-				   date
-				   (file-name-extension file))))
-	       (dired-copy-file file backup nil)
-	       (if (not flag)
-		   (dired-copy-file backup dir nil))))
-	  files)
+         (let ((backup (format "%s_%s_bak.%s"
+                   (file-name-sans-extension file)
+                   date
+                   (file-name-extension file))))
+           (dired-copy-file file backup nil)
+           (if (not flag)
+           (dired-copy-file backup dir nil))))
+      files)
     (revert-buffer)))
 
 ;; ---------------------------------------------------------
@@ -58,6 +58,9 @@
 ;; ---------------------------------------------------------
 ;; ディレクトリを先に表示
 (setq ls-lisp-dirs-first t)
+
+;; lsオプション
+(setq dired-listing-switches "-AFlth --group-directories-first")
 
 ;; M-x grep-dired or M-x find-grep-dired オプション
 (setq grep-find-command "find . -type f -print0 | xargs -0 -e grep -ns ")
@@ -75,65 +78,64 @@
 ;; dired hook
 ;; ---------------------------------------------------------
 (add-hook 'dired-mode-hook
-	  '(lambda ()
+      '(lambda ()
 
-	     ;; dired-x を使用
-	     (load "dired-x")
+         ;; dired-x を使用
+         (require 'dired-x)
 
-	     ;; .local.el の ls-lisp-use-insert-directory-program で
-	     ;; 有効/無効の設定がされることに注意
-	     (load-library "ls-lisp")
+         ;; .local.el の ls-lisp-use-insert-directory-program で
+         ;; 有効/無効の設定がされることに注意
+         (require 'ls-lisp)
 
-	     ;; C-h ディレクトリ一階層上がる
-	     (define-key (current-local-map) "\C-h" 'dired-up-directory)
-	     (define-key (current-local-map) [backspace] 'dired-up-directory)
+         ;; C-h ディレクトリ一階層上がる
+         (define-key (current-local-map) [backspace] 'dired-up-directory)
 
-	     ;; C-i dired-diplay-file (C-oが漢字変換キーにしていて使えないため)
-	     (define-key (current-local-map) "\C-i" 'dired-diplay-file)
+         ;; C-i dired-diplay-file (C-oが漢字変換キーにしていて使えないため)
+         (define-key (current-local-map) "\C-i" 'dired-diplay-file)
 
-	     ;; c 他の window に コピー
-	     (define-key (current-local-map) "c"
-	       (lambda (arg) (interactive "P")
-		 (let ((dired-dwim-target t)) (dired-do-copy arg))))
+         ;; c 他の window に コピー
+         (define-key (current-local-map) "c"
+           (lambda (arg) (interactive "P")
+         (let ((dired-dwim-target t)) (dired-do-copy arg))))
 
-	     ;; r 他の window に 移動
-	     (define-key (current-local-map) "r"
-	       (lambda (arg) (interactive "P")
-		 (let ((dired-dwim-target t)) (dired-do-rename arg))))
+         ;; r 他の window に 移動
+         (define-key (current-local-map) "r"
+           (lambda (arg) (interactive "P")
+         (let ((dired-dwim-target t)) (dired-do-rename arg))))
 
-	     ;; C-c w wdired-change-to-wdired-mode
-	     (define-key (current-local-map) "\C-cw" 'wdired-change-to-wdired-mode)
+         ;; C-c w wdired-change-to-wdired-mode
+         (define-key (current-local-map) "\C-cw" 'wdired-change-to-wdired-mode)
 
-	     (define-key (current-local-map) "q" 'my-dired-do-qiv)
-	     (define-key (current-local-map) "\C-cq" 'my-dired-do-qiv-chk)
-	     (define-key (current-local-map) "Q" 'my-dired-do-qbook)
-	     (define-key (current-local-map) "\M-q" 'my-chk-pic)
-	     (define-key (current-local-map) "\C-c!" 'my-dired-do-shell)
+         (define-key (current-local-map) "q" 'my-dired-do-qiv)
+         (define-key (current-local-map) "\C-cq" 'my-dired-do-qiv-chk)
+         (define-key (current-local-map) "Q" 'my-dired-do-qbook)
+         (define-key (current-local-map) "\M-q" 'my-chk-pic)
+         (define-key (current-local-map) "\C-c!" 'my-dired-do-shell)
 
-	     ;; ポイントしているディレクトリ下のファイル一覧を同じdiredバッファ内に表示
-	     ;; C-x C-x でサブディレクトリを表す行に戻れる
-	     (define-key (current-local-map) "i" 'dired-maybe-insert-subdir)
-	     (define-key (current-local-map) "I" 'dired-kill-subdir)
+         ;; ポイントしているディレクトリ下のファイル一覧を同じdiredバッファ内に表示
+         ;; C-x C-x でサブディレクトリを表す行に戻れる
+         (define-key (current-local-map) "i" 'dired-maybe-insert-subdir)
+         (define-key (current-local-map) "I" 'dired-kill-subdir)
 
-	     ;; C-oだとIMEが起動するので、v にdired-display-fileを割り当てる
-	     (define-key (current-local-map) "v" 'dired-display-file)
+         ;; C-oだとIMEが起動するので、v にdired-display-fileを割り当てる
+         (define-key (current-local-map) "v" 'dired-display-file)
 
-	     ;; マークをゴミ箱へ
-	     (define-key (current-local-map) "\C-cr" 'my-dired-del-file)
+         ;; マークをゴミ箱へ
+         (define-key (current-local-map) "\C-cr" 'my-dired-del-file)
 
-	     ;; バックアップ
-	     (define-key (current-local-map) [f11] 'my-dired-backup)
+         ;; バックアップ
+         (define-key (current-local-map) [f11] 'my-dired-backup)
 
-	     ;; zで関連付け実行
-	     (define-key (current-local-map) "z" 'my-dired-do-exec)
+         ;; zで関連付け実行
+         (define-key (current-local-map) "z" 'my-dired-do-exec)
 
-	     ;; マークされているときの色
-	     (set-face-foreground 'dired-marked "cyan")
-	     (set-face-foreground 'dired-flagged "red")
+         ;; マークされているときの色
+         (set-face-foreground 'dired-marked "cyan")
+         (set-face-foreground 'dired-flagged "red")
 
-	     (if (not window-system)
-		 (define-key (current-local-map) "\C-?"         'dired-up-directory))
-	     ))
+         (if (not window-system)
+         (define-key (current-local-map) "\C-?"         'dired-up-directory))
+         ))
 
 ;; ---------------------------------------------------------
 ;; 指定したファイルを非表示
@@ -178,100 +180,100 @@
   "Fontlock search function for dired."
   (search-forward-regexp
    (concat "\\(" (format-time-string " %b %e" (current-time))
-	   "\\|"(format-time-string "%Y-%m-%d" (current-time))
-	   "\\|"(format-time-string " %m-%d" (current-time))
-	   "\\)"
-	   " [0-9]....") arg t))
+       "\\|"(format-time-string "%Y-%m-%d" (current-time))
+       "\\|"(format-time-string " %m-%d" (current-time))
+       "\\)"
+       " [0-9]....") arg t))
 (defun my-dired-date (time)
   "Fontlock search function for dired."
   (let ((now (current-time))
-	(days (* -1 time))
-	dateh datel daysec daysh daysl dir
-	(offset 0))
+    (days (* -1 time))
+    dateh datel daysec daysh daysl dir
+    (offset 0))
     (setq daysec (* -1.0 days 60 60 24))
     (setq daysh (floor (/ daysec 65536.0)))
     (setq daysl (round (- daysec (* daysh 65536.0))))
     (setq dateh (- (nth 0 now) daysh))
     (setq datel (- (nth 1 now) (* offset 3600) daysl))
     (if (< datel 0)
-	(progn
-	  (setq datel (+ datel 65536))
-	  (setq dateh (- dateh 1))))
+    (progn
+      (setq datel (+ datel 65536))
+      (setq dateh (- dateh 1))))
     ;;(floor (/ offset 24))))))
     (if (< dateh 0)
-	(setq dateh 0))
+    (setq dateh 0))
     ;;(insert (concat (int-to-string dateh) ":"))
     (list dateh datel)))
 (defun my-dired-this-week-search (arg)
   "Fontlock search function for dired."
   (let ((youbi
-	 (string-to-int
-	  (format-time-string "%w" (current-time))))
-	this-week-start this-week-end day ;;regexp
-	(flg nil))
+     (string-to-int
+      (format-time-string "%w" (current-time))))
+    this-week-start this-week-end day ;;regexp
+    (flg nil))
     (setq youbi (+ youbi 1))
     (setq regexp
-	  (concat "\\("))
+      (concat "\\("))
     (while (not (= youbi 0))
       (setq regexp
-	    (concat
-	     regexp
-	     (if flg
-		 "\\|")
-	     (format-time-string " %b %e" (my-dired-date youbi))
-	     "\\|"
-	     (format-time-string "%Y-%m-%d" (my-dired-date youbi))
-	     "\\|"
-	     (format-time-string " %m-%d" (my-dired-date youbi))
-	     ))
+        (concat
+         regexp
+         (if flg
+         "\\|")
+         (format-time-string " %b %e" (my-dired-date youbi))
+         "\\|"
+         (format-time-string "%Y-%m-%d" (my-dired-date youbi))
+         "\\|"
+         (format-time-string " %m-%d" (my-dired-date youbi))
+         ))
       ;;(insert (concat (int-to-string youbi) "\n"))
       (setq flg t)
       (setq youbi (- youbi 1))))
   (setq regexp
-	(concat regexp "\\)"))
+    (concat regexp "\\)"))
   (search-forward-regexp
    (concat regexp " [0-9]....") arg t))
 (defun my-dired-last-week-search (arg)
   "Fontlock search function for dired."
   (let ((youbi
-	 (string-to-int
-	  (format-time-string "%w" (current-time))))
-	this-week-start this-week-end day ;;regexp
-	lyoubi
-	(flg nil))
+     (string-to-int
+      (format-time-string "%w" (current-time))))
+    this-week-start this-week-end day ;;regexp
+    lyoubi
+    (flg nil))
     (setq youbi (+ youbi 0))
     (setq lyoubi (+ youbi 7))
     (setq regexp
-	  (concat "\\("))
+      (concat "\\("))
     (while (not (= lyoubi youbi))
       (setq regexp
-	    (concat
-	     regexp
-	     (if flg
-		 "\\|")
-	     (format-time-string " %b %e" (my-dired-date lyoubi))
-	     "\\|"
-	     (format-time-string "%Y-%m-%d" (my-dired-date lyoubi))
-	     "\\|"
-	     (format-time-string " %m-%d" (my-dired-date lyoubi))
-	     ))
+        (concat
+         regexp
+         (if flg
+         "\\|")
+         (format-time-string " %b %e" (my-dired-date lyoubi))
+         "\\|"
+         (format-time-string "%Y-%m-%d" (my-dired-date lyoubi))
+         "\\|"
+         (format-time-string " %m-%d" (my-dired-date lyoubi))
+         ))
       ;;(insert (concat (int-to-string youbi) "\n"))
       (setq flg t)
       (setq lyoubi (- lyoubi 1))))
   (setq regexp
-	(concat regexp "\\)"))
+    (concat regexp "\\)"))
   (search-forward-regexp
    (concat regexp " [0-9]....") arg t))
 
 (add-hook 'dired-mode-hook
-	  '(lambda ()
-	     (font-lock-add-keywords
-	      major-mode
-	      (list
-	       '(my-dired-today-search . face-file-edited-today)
-	       '(my-dired-this-week-search . face-file-edited-this-week)
-	       '(my-dired-last-week-search . face-file-edited-last-week)
-	       ))))
+      '(lambda ()
+         (font-lock-add-keywords
+          major-mode
+          (list
+           '(my-dired-today-search . face-file-edited-today)
+           '(my-dired-this-week-search . face-file-edited-this-week)
+           '(my-dired-last-week-search . face-file-edited-last-week)
+           ))))
 
 ;; ---------------------------------------------------------
 ;; マーク

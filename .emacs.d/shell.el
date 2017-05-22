@@ -177,15 +177,17 @@
       ;; シェルモード以外
 
       ;; ウィンドウ分割
-      (if (eq this other)
-          (progn
-            (setq my-shell-split-window-flag t)
-            (split-window-vertically))
-        (setq my-shell-split-window-flag nil))
+      ;; (if (eq this other)
+      ;;     (progn
+      ;;       (setq my-shell-split-window-flag t)
+      ;;       (split-window-vertically))
+      ;;   (setq my-shell-split-window-flag nil))
 
       ;; (unless (eq 0 (nth 1 (window-edges)))
       ;;     (other-window 1))
+      (setq my-shell-this-pwd (pwd))
       (shell)
+      (setq my-shell-other-pwd (pwd))
 
       ;; プロンプトの先頭行に移動
       (goto-char (point-max))
@@ -194,18 +196,19 @@
       ;; コマンドラインに残っている文字列を消す
       (delete-region (point) (point-max))
 
-      ;; 頭に1文字空白を付けるのは、cd コマンドをヒストリに残さないため
-      ;; ただし、シェルの設定も必要
-      (setq cmd (concat " cd " "\'" dir "\'"))
-      (insert cmd)
-      (comint-send-input)
+      (when (not (string= my-shell-this-pwd my-shell-other-pwd))
+        ;; 頭に1文字空白を付けるのは、cd コマンドをヒストリに残さないため
+        ;; ただし、シェルの設定も必要
+        (setq cmd (concat " cd " "\'" dir "\'"))
+        (insert cmd)
+        (comint-send-input))
       (setq cmd "")
       (while files
         (setq cmd (concat cmd " " (car files)))
         (setq files (cdr files)))
       (insert cmd)
-      (comint-bol-or-process-mark)
-      )))
+      (comint-bol-or-process-mark))
+      ))
 
 ;; C-c s シェルバッファに移った後、作業中のディレクトリに移動
 (global-set-key "\C-cs"  'my-shell-cd)

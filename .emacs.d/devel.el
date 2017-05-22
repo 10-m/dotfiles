@@ -18,7 +18,7 @@
 ;; C-M-b backward-sexp              括弧の先頭へ移動
 ;; C-M-f forward-of-defun           括弧の最後に移動
 ;; C-x C-x                          マーク位置に飛ぶ
-;; M-x indent-region                インデントをそろえる
+;; M-x indent-region (C-M-\)        インデントをそろえる
 ;; M-x align-regex                  整列。主に代入文で使う
 ;; M-x align                        整列。主に変数定義や箇条書きで使う
 
@@ -73,7 +73,7 @@
 ;; ---------------------------------------------------------
 ;; trim-region
 ;; ---------------------------------------------------------
-(defun trim-region (start end)
+(defun my-trim-region (start end)
   (interactive "r")
   (save-excursion
     (save-restriction
@@ -87,8 +87,10 @@
 (defun my-indent-region (start end)
   (interactive "r")
   (untabify start end)
-  (trim-region start end)
+  (my-trim-region start end)
   (indent-region start end))
+
+(global-set-key "\C-ci" 'my-indent-region)
 
 ;; ---------------------------------------------------------
 ;; highlight-indentation
