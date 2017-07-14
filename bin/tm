@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ $(tmux ls | wc -l) -eq 0 ] ; then
+    if [ -f ~/local/.tmux_local ]; then
+        tmux new-session \; source-file ~/local/.tmux_local
+    else
+        tmux
+    fi
+elif [ $(tmux ls | wc -l) -eq 1 ] ; then
+    tmux a -t $(tmux ls | cut -d: -f 1)
+else
+    session=$(tmux ls | peco | cut -d: -f 1)
+    if [ -n "$session" ] ; then
+        tmux a -t "$session"
+    fi
+fi
