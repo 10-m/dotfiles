@@ -18,6 +18,25 @@
 ;; e or C-m        edit
 (require 'sr-speedbar)
 
+(defun my-speedbar-expand-all-lines ()
+  "Expand all items in the speedbar buffer.
+ But be careful: this opens all the files to parse them."
+  (interactive)
+  (goto-char (point-min))
+  (while (not (eobp))
+    (forward-line)
+    (speedbar-expand-line)))
+(define-key speedbar-mode-map "+" 'my-speedbar-expand-all-lines)
+
+(defun my-speedbar-contract-all-lines ()
+  "Contract all items in the speedbar buffer."
+  (interactive)
+  (goto-char (point-min))
+  (while (not (eobp))
+    (forward-line)
+    (speedbar-contract-line)))
+(define-key speedbar-mode-map "-" 'my-speedbar-contract-all-lines)
+
 ;; Don't move to speedbar-window by C-o
 (setq sr-speedbar-skip-other-window-p t)
 
@@ -34,3 +53,19 @@
 
 ;; Quit
 (define-key speedbar-mode-map "q" 'sr-speedbar-close)
+
+;; ---------------------------------------------------------
+;; browser
+;; ---------------------------------------------------------
+(if window-system
+    (setq browse-url-browser-function 'browse-url-firefox
+          browse-url-firefox-new-window-is-tab t)
+  (setq browse-url-browser-function 'eww-browse-url))
+
+(require 'google-this)
+(global-set-key "\C-cb" 'google-this)
+
+(setq google-this-location-suffix "co.jp")
+(defun google-this-url () "URL for google searches."
+  (concat google-this-base-url google-this-location-suffix
+          "/search?q=%s&hl=ja&lr=lang_ja"))

@@ -3,8 +3,6 @@
 ;; ---------------------------------------------------------
 ;; Perl::Tidy
 ;; ---------------------------------------------------------
-;; [インストール]
-;; cpan> install Perl::Tidy
  (defun perltidy-region ()
    "Run perltidy on the current region."
    (interactive)
@@ -263,28 +261,15 @@
              (set-face-italic-p 'cperl-array-face nil)
              (set-face-background 'cperl-array-face nil)
              (set-face-bold-p 'cperl-array-face nil)
-             ;; { で{}を書く
-             (define-key (current-local-map) "{" 'insert-braces)
-             ;; ( で () を書く
-             (define-key (current-local-map) "(" 'insert-parens)
-             ;; [ で [] を書く
-             (define-key (current-local-map) "[" 'insert-brackets)
-             ;; " で""を書く
-             (define-key (current-local-map) "\"" 'insert-double-quotation)
-             ;; ' で''を書く
-             (define-key (current-local-map) "\'" 'insert-single-quotation)
-             ;; C-c }で region を{}で囲む
-             (define-key (current-local-map) "\C-c}" 'insert-braces-region)
-             ;; C-c ) で region を () で囲む
-             (define-key (current-local-map) "\C-c)" 'insert-parens-region)
-             ;; C-c ] で region を [] で囲む
-             (define-key (current-local-map) "\C-c]" 'insert-brackets-region)
-             ;; C-c "で region を""で囲む
-             (define-key (current-local-map) "\C-c\"" 'insert-double-quotation-region)
-             ;; C-c 'で region を''で囲む
-             (define-key (current-local-map) "\C-c\'" 'insert-single-quotation-region)
              ;; C-c i でインデントリージョン
              (define-key (current-local-map) "\C-ci" 'perltidy-region)
              ;; デバッグコメント挿入
              (define-key (current-local-map) "\C-cp" 'my-insert-perl-debug)
+             ;; brackets
+             (define-key (current-local-map) "{" 'insert-pair)
+             (define-key (current-local-map) "(" 'insert-pair)
+             (define-key (current-local-map) "[" 'insert-pair)
+             (define-key (current-local-map) ")" 'my-insert-brace)
+             (define-key (current-local-map) "]" 'my-insert-bracket)
+             (define-key (current-local-map) "}" 'my-insert-paran)
              ))

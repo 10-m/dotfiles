@@ -3,13 +3,13 @@
 ;; ---------------------------------------------------------
 ;; ESS
 ;; ---------------------------------------------------------
-(require 'ess-site)
 (add-to-list 'auto-mode-alist '("\\.[rR]$" . R-mode))
+(autoload 'R-mode "ess-site" "Emacs Speaks Statistics mode" t)
 
 ;; ---------------------------------------------------------
 ;; Hook
 ;; ---------------------------------------------------------
-(add-hook 'R-mode-hook
+(add-hook 'ess-mode-hook
           '(lambda ()
              ;; tab length
              (setq ess-indent-level 4)

@@ -6,6 +6,43 @@
 ;;  M-x compileでコンパイル時に*compile*を自動でスクロール
 (setq compilation-scroll-output t)
 
+;; #!が付いているファイルを保存時に自動で chmod +x する
+(add-hook 'after-save-hook
+          'executable-make-buffer-file-executable-if-script-p)
+
+;; ---------------------------------------------------------
+;; brackets
+;; ---------------------------------------------------------
+;; Don't insert extra space
+(setq  parens-require-spaces nil)
+
+(define-key global-map "{" 'insert-pair)
+(define-key global-map "(" 'insert-pair)
+(define-key global-map "[" 'insert-pair)
+(define-key global-map "\"" 'insert-pair)
+(define-key global-map "\'" 'insert-pair)
+
+(defun my-insert-brace (&optional arg)
+  (interactive "*P")
+  (if (region-active-p)
+      (insert-pair arg ?\( ?\))
+    (insert ?\))))
+(define-key global-map ")" 'my-insert-brace)
+
+(defun my-insert-bracket (&optional arg)
+  (interactive "*P")
+  (if (region-active-p)
+      (insert-pair arg ?\[ ?\])
+    (insert ?\])))
+(define-key global-map "]" 'my-insert-bracket)
+
+(defun my-insert-paran (&optional arg)
+  (interactive "*P")
+  (if (region-active-p)
+      (insert-pair arg ?\{ ?\})
+    (insert ?\})))
+(define-key global-map "}" 'my-insert-paran)
+
 ;; ---------------------------------------------------------
 ;; 共通キーバインド
 ;; ---------------------------------------------------------
@@ -22,6 +59,23 @@
 ;; M-x align-regex                  整列。主に代入文で使う
 ;; M-x align                        整列。主に変数定義や箇条書きで使う
 
+;; C-c / Commet out regio
+(global-set-key "\C-c/" 'comment-region)
+;; C-c \ Uncomment out region
+(global-set-key "\C-c\\" 'uncomment-region)
+
+;; ---------------------------------------------------------
+;; flycheck
+;; ---------------------------------------------------------
+(require 'flycheck)
+;; M-x flycheck-mode  On/Off flycheck mode
+
+(define-key global-map (kbd "\C-cfn") 'flycheck-next-error)
+(define-key global-map (kbd "\C-cfp") 'flycheck-previous-error)
+(define-key global-map (kbd "\C-cfl") 'flycheck-list-errors)
+(define-key global-map (kbd "\C-cfe") 'flycheck-error-list-explain-error)
+(define-key global-map (kbd "\C-cfg") 'flycheck-error-list-check-source)
+
 ;; ---------------------------------------------------------
 ;; Hs minor mode
 ;; ---------------------------------------------------------
@@ -36,39 +90,9 @@
 ;; C-c @ C-M-s     hs-show-all
 
 ;; ---------------------------------------------------------
-;; コメントアウト
-;; ---------------------------------------------------------
-;; http://d.hatena.ne.jp/tomoya/20091015/1255593575
-;; 1.  transient-mark-mode がオンでリージョンが有効のときに M-; すると、コメン
-;;     トアウト、もしくは解除のコマンドになる
-;; 2. transient-mark-mode がオンでリージョンが有効のときに C-u 数値 M-; すると、
-;;    コメント文字列を数値分にする (下に補足説明あり)
-;; 3. 何もない行で M-; した場合、コメント文字列を挿入する
-;; 4. 何か書かれている行で M-; した場合、行末にコメント文字列を挿入する
-;; 5. コメント行で M-; した場合、コメント文までジャンプする
-;; 6. コメント行で、引数を与えて M-; した場合 (C-u M-; という感じ) 、コメント行
-;;    であれば削除する。
-
-;; C-c /                            リージョンをコメントアウト
-;; (global-set-key "\C-c/" 'comment-dwim)
-(global-set-key "\C-c/" 'comment-region)
-
-;; C-c \                            リージョンをアンコメントアウト
-(global-set-key "\C-c\\" 'uncomment-region)
-
-;; ---------------------------------------------------------
 ;; expand-region
 ;; ---------------------------------------------------------
 (global-set-key (kbd "C-M-@") 'er/expand-region)
-
-;; ---------------------------------------------------------
-;; brackets,el
-;; ---------------------------------------------------------
-;; [インストール]
-;; http://www.mcl.chem.tohoku.ac.jp/~nakai/emacs/site-lisp/brackets.el
-;;
-;; オリジナルにinsert-single-quotationを追加した
-(load "brackets")
 
 ;; ---------------------------------------------------------
 ;; trim-region

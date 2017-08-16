@@ -74,9 +74,6 @@
 ;; ヒントをミニバッファで表示するように変更
 (setq tooltip-use-echo-area t)
 
-;; 時間をモード行に表示
-(display-time)
-
 ;; 現在の関数名をモードラインに表示
 (require 'which-func)
 (which-func-mode t)
@@ -214,6 +211,11 @@ See `font-lock-add-keywords' and `font-lock-defaults'."
 (load "font-lock")
 (global-font-lock-mode t)
 (setq font-lock-support-mode 'jit-lock-mode)
+(set-face-attribute 'font-lock-constant-face nil
+                    :foreground "white"
+                    :background "black"
+                    :weight 'bold
+                    :underline nil)
 
 ;; ---------------------------------------------------------
 ;; 全角空白、タブ、改行表示モード
@@ -234,3 +236,16 @@ See `font-lock-add-keywords' and `font-lock-defaults'."
                     :foreground "blue"
                     :background "blue"
                     :underline nil)
+
+;; ---------------------------------------------------------
+;; Time
+;; ---------------------------------------------------------
+(display-time)
+
+(setq display-time-string-forms
+      '((format "%s:%s" 24-hours minutes)
+        load
+        (if mail " Mail" "")))
+
+;; 24 hour format
+(setq display-time-24hr-format t)

@@ -5,11 +5,15 @@
 ## 一般 or 未分類
 ## ---------------------------------------------------------
 # パス
-export PATH="$HOME/local/bin:$HOME/bin:$HOME/closed/bin:$PATH"
+export PATH="$HOME/local/bin:$HOME/.local/bin:$HOME/bin:$HOME/closed/bin:$PATH"
+#export PATH="$HOME/.linuxbrew/bin:$HOME/local/bin:$HOME/.local/bin:$HOME/bin:$HOME/closed/bin:$PATH"
+#export MANPATH="$HOME/.linuxbrew/share/man:$MANPATH"
+#export INFOPATH="$HOME/.linuxbrew/share/info:$INFOPATH"
+#export LD_LIBRARY_PATH="$HOME/.linuxbrew/lib:$LD_LIBRARY_PATH"
 
 # Perl
 export PATH="$HOME/perl5/lib/perl5/bin:$PATH"
-export PERL_CPANM_OPT="--local-lib=~/perl5/lib/perl5"
+export PERL_CPANM_OPT="--local-lib=~/perl5"
 export PERL5LIB=$HOME/perl5/lib/perl5:$PERL5LIB;
 
 # ビープ音を鳴らさないようにする
@@ -393,6 +397,45 @@ zle -N history-beginning-search-backward-end history-search-end
 bindkey "^[/" history-beginning-search-backward-end
 
 ## ---------------------------------------------------------
+## tmux
+## ---------------------------------------------------------
+[[ -n "${TMUX}" ]] && [[ -z "${_TMUX_TITLE}" ]] && tmux rename-window  ${PWD/${HOME}/\~}
+
+tmux_precmd() {
+    [[ -z "${TMUX}" ]] && return
+    if [[ -n "${_TMUX_TITLE}" ]]; then
+        tmux rename-window "${_TMUX_TITLE}"
+    else
+        local dir=${PWD/${HOME}/\~} # $HOMEをチルダで置換
+        dir=$dir:t                  # basename
+        tmux rename-window "$dir"
+    fi
+}
+
+tmux_preexec() {
+    [[ -z "${TMUX}" ]] && return
+
+    local line=${1%%$'\n'}
+    # local cmd=${line%% *}
+    local cmd=$(echo "$line" | sed -e 's/^ *//' -e 's/ .*//')
+
+    # 一瞬コマンド名が表示されるのを一部防止
+    if [[ ${cmd} != (l|l[sal])
+                && ${cmd} != (pwd)
+                && ${cmd} != (which)
+                && ${cmd} != (c|cd) ]]
+    then
+        local dir=${PWD/${HOME}/\~} # $HOMEをチルダで置換
+        dir=$dir:t                  # basename
+        if [[ -n "${_TMUX_TITLE}" ]]; then
+            tmux rename-window "${_TMUX_TITLE}"':'${dir}'('"${cmd}"')'
+        else
+            tmux rename-window "${dir}"'('"${cmd}"')'
+        fi
+    fi
+}
+
+## ---------------------------------------------------------
 ## emacs
 ## ---------------------------------------------------------
 if [[ $EMACS = t || $TERM = "emacs" || $TERM = "dumb" ]]
@@ -474,7 +517,7 @@ setopt PROMPT_SUBST
 ## ---------------------------------------------------------
 ## プロンプトを表示する前に実行
 precmd () {
-    #screen_precmd
+    tmux_precmd
     vcs_precmd
 }
 
@@ -483,7 +526,7 @@ precmd () {
 ## ---------------------------------------------------------
 ## コマンドを実行する前に実行
 preexec() {
-    #screen_preexec $1
+    tmux_preexec $1
 }
 
 ## ---------------------------------------------------------
@@ -603,16 +646,7 @@ echo hello > /dev/null
 # 指しているとzshは判断
 
 # [ワイルドカード(ファイルの種類)]
-# % ls *(x)
-# hogehoge.sh*
-#
-# baa:
-# 01.ps  03.ps  05.ps  07.ps  09.ps  11.ps  13.ps  15.ps  17.ps  19.ps
-# 02.ps  04.ps  06.ps  08.ps  10.ps  12.ps  14.ps  16.ps  18.ps  20.ps
-#
-# foo:
-# hoge.pdf  hoge.ps
-# % ls *(.)
+
 # geho.cpp  gehogeho.txt  hoge.cpp  hoge.h  hogehoge.sh*
 # % ls *(.x)
 # hogehoge.sh*

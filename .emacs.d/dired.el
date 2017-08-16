@@ -308,3 +308,47 @@
 ;; s s  proced-sort-start
 ;; s t  proced-sort-time
 ;; s u  proced-sort-user
+
+;; ---------------------------------------------------------
+;; file extension
+;; ---------------------------------------------------------
+(setq dired-guess-shell-alist-user
+      '(("\\.\\(pdf\\|PDF\\)\\'"   "xpdf")
+        ("\\.\\(swf\\|SWF\\)\\'"   "firefox")
+        ("\\.\\(html\\|HTML\\)\\'" "firefox")
+        ("\\.\\(htm\\|HTM\\)\\'"   "firefox")
+        ("\\.\\(tox\\|TOX\\)\\'"   "smplayer")
+        ("\\.\\(mpg\\|MPG\\)\\'"   "smplayer")
+        ("\\.\\(mpeg\\|MPEG\\)\\'" "smplayer")
+        ("\\.\\(avi\\|AVI\\)\\'"   "smplayer")
+        ("\\.\\(mp3\\|MP3\\)\\'"   "smplayer")
+        ("\\.\\(mp4\\|MP4\\)\\'"   "smplayer")
+        ("\\.\\(wmv\\|WMV\\)\\'"   "smplayer")
+        ("\\.\\(flv\\|FLV\\)\\'"   "smplayer")
+        ("\\.\\(rmvb\\|RMVB\\)\\'" "smplayer")
+        ("\\.\\(mkv\\|MKV\\)\\'"   "smplayer")
+        ("\\.\\(zip\\|ZIP\\)\\'"   "nautilus")
+        ("\\.\\(rar\\|RAR\\)\\'"   "nautilus")
+        ("\\.\\(z\\|Z\\)\\'"       "nautilus")
+        ("\\.\\(7z\\|7Z\\)\\'"     "nautilus")
+        ("\\.\\(lhz\\|LHZ\\)\\'"   "lha l")
+        ("\\.\\(jpg\\|JPG\\)\\'"   "qiv")
+        ("\\.\\(gif\\|GIF\\)\\'"   "qiv")
+        ("\\.\\(png\\|PNG\\)\\'"   "qiv")
+        ("\\.\\(bmp\\|BMP\\)\\'"   "qiv")))
+
+(defun my-dired-view ()
+  (interactive)
+  (let ((alist dired-guess-shell-alist-user)
+        (file (dired-get-filename))
+        elt cmds)
+    (while alist
+      (setq elt (car alist)
+            regexp (car elt)
+            alist (cdr alist))
+      (if (string-match regexp file)
+          (setq cmds (cdr elt)
+                alist nil)))
+    (if (not (cdr cmds))
+        (start-process "my-dired-do-exec" "*do-exec*" (car cmds) file))))
+

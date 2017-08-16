@@ -10,3 +10,5 @@ el-get/
 .emacs.d/ac-comphist.dat
 .emacs.d/auto-save-list
 #*#
+.python-environments
+.emacs.d/url/

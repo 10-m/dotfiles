@@ -1,6 +1,7 @@
 ;; -*- coding: utf-8-unix -*-
 
 (add-to-list 'load-path "~/.emacs.d/mannual-libs")
+(add-to-list 'load-path "~/local/share/emacs/site-lisp/ess")
 
 (defconst my-elisp-directory "~/share/elisp" "The directory for my elisp file.")
 
@@ -53,6 +54,14 @@
 (el-get-bundle emacswiki:shell-history)
 (el-get-bundle emacswiki:perl-completion)
 (el-get-bundle sr-speedbar)
+(el-get-bundle google-this)
+(el-get-bundle js2-mode)
+(el-get-bundle flycheck)
+(el-get-bundle py-yapf)
+(el-get-bundle jedi)
+(el-get-bundle markdown-mode)
+(el-get-bundle smex)
+;(el-get-bundle sdic)
 ;;(el-get-bundle myuhe/ido-migemo)
 
 (setq recentf-save-file "~/tmp/emacs/recentf")

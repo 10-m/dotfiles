@@ -321,3 +321,9 @@
 (require 'undo-tree)
 (global-undo-tree-mode t)
 (global-set-key (kbd "M-_") 'undo-tree-redo)
+
+;; ---------------------------------------------------------
+;; clean old buffer
+;; ---------------------------------------------------------
+ (require 'midnight)
+ 

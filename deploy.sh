@@ -30,10 +30,6 @@ if [ ! -f ~/local/.zsh_local ]; then
     touch ~/local/.zsh_local
 fi
 
-if [ ! -d ~/.cask ]; then
-    curl -fsSL https://raw.githubusercontent.com/cask/cask/master/go | python
-fi
-
 if [ ! -f ~/local/bin/peco ]; then
     cd ~/tmp
     wget https://github.com/peco/peco/releases/download/v0.5.0/peco_linux_amd64.tar.gz
@@ -42,3 +38,14 @@ if [ ! -f ~/local/bin/peco ]; then
     chmod +x ~/local/bin/peco
     cd $CURRENT
 fi
+
+# if [ ! -d ~/.linuxbrew ]; then
+#     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/linuxbrew/go/install)"
+#     brew doctor
+#     brew prune
+#     brew update
+# fi
+
+# if ! which aspell > /dev/null 2> /dev/null; then
+#     brew install aspell
+# fi

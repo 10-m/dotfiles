@@ -188,6 +188,10 @@
 (icomplete-mode t)
 (setq ido-save-directory-list-file "~/tmp/emacs/ido.last")
 
+(global-set-key (kbd "M-x") 'smex)
+(global-set-key (kbd "M-X") 'smex-major-mode-commands)
+
+
 ;; ---------------------------------------------------------
 ;; iswitchb バッファの切換えを楽にする
 ;; ---------------------------------------------------------
