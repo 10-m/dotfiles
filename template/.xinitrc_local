@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# cyan4 = 008B8B
+xsetroot -solid cyan4 -cursor_name left_ptr
+xmodmap $HOME/cfg/.xmodmap
+xmodmap -e "pointer = 1 8 3 4 5 6 7 2 9"
+
+mkdir -p /tmp/cache-${USER}/firefox
+mkdir -p /tmp/cache-${USER}/chrome
+
+radiotray &
+# emacs &
+# xterm -e screen -xR &
+# mlterm -e screen -xR -U &
+# sleep 3
+# wmctrl -r mlterm -b add,maximized_vert
+# wmctrl -r mlterm -b add,maximized_horz
+# wmctrl -r screen -b add,fullscreen
+# kmix &
+# LANG=C perl $HOME/lang/perl/GUI/Gtk/Clock.pl &

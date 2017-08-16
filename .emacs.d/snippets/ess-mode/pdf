@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: pdf
+# key: pdf
+# --
+pdf("plot.pdf", paper="a4r", width=9.5, height=7, pointsize=10)
+par(mfrow=c(3, 2))
+`yas/selected-text`$0
+dev.off()

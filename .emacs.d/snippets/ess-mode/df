@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: read.table
+# key: df
+# --
+df <- read.table("${1:clipboard}", header=${2:F}, skip=${3:0}, seq="${4:\t}")

@@ -1,0 +1,16 @@
+// -*- coding: utf-8-unix -*-
+digraph sample {
+  graph [fontname = "monospace", fontsize = 10];
+  node  [fontname = "monospace", fontsize = 10];
+  edge  [fontname = "monospace", fontsize = 10];
+
+  // node
+  node1 [label = "ノード1"];
+  node2 [label = "ノード2"];
+
+  // edge
+  node1 -> node2 [label = "エッジ"];
+
+  // rank
+  {rank = same; node1; node2 };
+}

@@ -1,0 +1,32 @@
+
+;; ----- smex-history -----
+(
+ untabify
+ replace-regexp
+ ispell-region
+ ispell-buffer
+ yas-reload-all
+ R-mode
+ ess-mode-menu
+)
+
+;; ----- smex-data -----
+(
+ (magit-status . 1)
+ (grep . 1)
+ (yas/reload-all . 4)
+ (yas/expand . 1)
+ (yas-expand . 9)
+ (yas-reload-all . 11)
+ (ac-expand . 1)
+ (yas-global-mode . 2)
+ (yas-minor-mode . 4)
+ (ac-trigger-key-command . 1)
+ (yas-load-snippet-buffer . 2)
+ (ess-mode-menu . 1)
+ (R-mode . 1)
+ (ispell-region . 5)
+ (ispell-buffer . 1)
+ (untabify . 4)
+ (replace-regexp . 1)
+)

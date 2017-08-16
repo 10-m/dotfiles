@@ -1,0 +1,5 @@
+rename-window ROOT
+# new-window -n EMACS 'emacs -nw' 
+new-window -n EMACS
+send-keys 'emacs -nw' C-m
+new-window -n WORK
