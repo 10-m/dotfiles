@@ -555,19 +555,19 @@ function my_rm {
 
     # ignore rm option
     while [ $# -gt 0 ]; do
-	case $1 in
-	    -r)  shift;;
-	    -f)  shift;;
-	    -rf) shift;;
-	    -fr) shift;;
-	    *)   break;;
-	esac
+    case $1 in
+        -r)  shift;;
+        -f)  shift;;
+        -rf) shift;;
+        -fr) shift;;
+        *)   break;;
+    esac
     done
 
     while [ $# -gt 0 ]; do
         dest=$(realpath "$1" | sed -e 's$/$!$g' -e 's/:/!/' -e 's/ /!/' -e 's/\\/!/')
-	mv "$1" "${trash}/${dest}"
-	shift
+    mv "$1" "${trash}/${dest}"
+    shift
     done
 }
 

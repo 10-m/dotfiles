@@ -43,6 +43,13 @@
     (insert ?\})))
 (define-key global-map "}" 'my-insert-paran)
 
+(defun my-insert-angle (&optional arg)
+  (interactive "*P")
+  (if (region-active-p)
+      (insert-pair arg ?\< ?\>)
+    (insert ?\>)))
+(define-key global-map ">" 'my-insert-angle)
+
 ;; ---------------------------------------------------------
 ;; 共通キーバインド
 ;; ---------------------------------------------------------

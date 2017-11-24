@@ -60,9 +60,9 @@
              (setq indent-tabs-mode nil)
 
              ;; < で <> を書く
-             (define-key (current-local-map) "<" 'insert-angle)
+             (define-key (current-local-map) "<" 'insert-pair)
              ;; C-c >で region を<>で囲む
-             (define-key (current-local-map) "\C-c>" 'insert-angle-region)
+             (define-key (current-local-map) "\C-c>" 'my-insert-angle)
              ;; C-c < でクローズタグ
-             (define-key (current-local-map) "\C-c<" 'sgml-close-tag)
+             ;; (define-key (current-local-map) "\C-c<" 'sgml-close-tag)
              ))

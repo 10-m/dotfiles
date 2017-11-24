@@ -5,9 +5,9 @@
  replace-regexp
  ispell-region
  ispell-buffer
- yas-reload-all
- R-mode
- ess-mode-menu
+ yas-minor-mode
+ yas-global-mode
+ grep
 )
 
 ;; ----- smex-data -----
@@ -27,6 +27,6 @@
  (R-mode . 1)
  (ispell-region . 5)
  (ispell-buffer . 1)
- (untabify . 4)
+ (untabify . 5)
  (replace-regexp . 1)
 )
