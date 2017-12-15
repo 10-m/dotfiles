@@ -1,18 +1,18 @@
 
 ;; ----- smex-history -----
 (
+ magit-status
  untabify
  replace-regexp
  ispell-region
  ispell-buffer
  yas-minor-mode
  yas-global-mode
- grep
 )
 
 ;; ----- smex-data -----
 (
- (magit-status . 1)
+ (magit-status . 2)
  (grep . 1)
  (yas/reload-all . 4)
  (yas/expand . 1)

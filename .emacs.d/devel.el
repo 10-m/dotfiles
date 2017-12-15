@@ -304,6 +304,33 @@
 ;;  shift-f pull-mode
 ;;    u pull
 
+(require 'magit)
+
+;; magit diff color
+;; cursorが載っていない状態でのaddedのface
+(set-face-foreground 'magit-diff-added "blue")
+(set-face-background 'magit-diff-added "green")
+
+;; cursorが載っている状態のaddedのface
+(set-face-foreground 'magit-diff-added-highlight "black")
+(set-face-background 'magit-diff-added-highlight "green")
+
+;; cursor載っていない状態のremoved
+(set-face-foreground 'magit-diff-removed "white")
+(set-face-background 'magit-diff-removed "red")
+
+;; cursor載っている状態のremoved
+(set-face-foreground 'magit-diff-removed-highlight "yellow")
+(set-face-background 'magit-diff-removed-highlight "red")
+
+;; ---------------------------------------------------------
+;; diff
+;; ---------------------------------------------------------
+(set-face-attribute 'diff-added nil
+                    :foreground "black" :background "green")
+(set-face-attribute 'diff-removed nil
+                    :foreground "white" :background "red")
+
 ;; ---------------------------------------------------------
 ;; vc-annotate
 ;; ---------------------------------------------------------

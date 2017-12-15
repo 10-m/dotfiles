@@ -121,12 +121,14 @@
 (define-key elscreen-map [?\ ] 'elscreen-next)
 
 ;; タブ幅
-(setq elscreen-tab-width 6)
+(setq elscreen-tab-width 5)
 
 ;; No Display [X] & [!]
 (setq elscreen-tab-display-kill-screen nil)
 (setq elscreen-tab-display-create-screen nil)
 (setq elscreen-tab-display-control nil)
+
+;; elscreen-swap 並び変え
 
 ;; ---------------------------------------------------------
 ;; ibuffer
