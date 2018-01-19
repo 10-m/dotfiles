@@ -1,19 +1,19 @@
 
 ;; ----- smex-history -----
 (
+ grep-find
+ grep
+ find-grep
+ elscreen-swap
  magit-status
  untabify
  replace-regexp
- ispell-region
- ispell-buffer
- yas-minor-mode
- yas-global-mode
 )
 
 ;; ----- smex-data -----
 (
  (magit-status . 2)
- (grep . 1)
+ (grep . 25)
  (yas/reload-all . 4)
  (yas/expand . 1)
  (yas-expand . 9)
@@ -29,4 +29,7 @@
  (ispell-buffer . 1)
  (untabify . 5)
  (replace-regexp . 1)
+ (grep-find . 10)
+ (elscreen-swap . 7)
+ (find-grep . 1)
 )

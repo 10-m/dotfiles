@@ -399,7 +399,7 @@ bindkey "^[/" history-beginning-search-backward-end
 ## ---------------------------------------------------------
 ## tmux
 ## ---------------------------------------------------------
-[[ -n "${TMUX}" ]] && [[ -z "${_TMUX_TITLE}" ]] && tmux rename-window  ${PWD/${HOME}/\~}
+## [[ -n "${TMUX}" ]] && [[ -z "${_TMUX_TITLE}" ]] && tmux rename-window  ${PWD/${HOME}/\~}
 
 tmux_precmd() {
     [[ -z "${TMUX}" ]] && return
@@ -517,7 +517,7 @@ setopt PROMPT_SUBST
 ## ---------------------------------------------------------
 ## プロンプトを表示する前に実行
 precmd () {
-    tmux_precmd
+    # tmux_precmd
     vcs_precmd
 }
 
@@ -526,7 +526,7 @@ precmd () {
 ## ---------------------------------------------------------
 ## コマンドを実行する前に実行
 preexec() {
-    tmux_preexec $1
+    # tmux_preexec $1
 }
 
 ## ---------------------------------------------------------
