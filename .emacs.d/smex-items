@@ -1,19 +1,19 @@
 
 ;; ----- smex-history -----
 (
+ jedi:install-server
+ server-force-delete
+ toggle-truncate-lines
  grep-find
  grep
- find-grep
- elscreen-swap
- magit-status
- untabify
- replace-regexp
+ linum-mode
+ ediff
 )
 
 ;; ----- smex-data -----
 (
  (magit-status . 2)
- (grep . 25)
+ (grep . 44)
  (yas/reload-all . 4)
  (yas/expand . 1)
  (yas-expand . 9)
@@ -28,8 +28,17 @@
  (ispell-region . 5)
  (ispell-buffer . 1)
  (untabify . 5)
- (replace-regexp . 1)
- (grep-find . 10)
+ (replace-regexp . 5)
+ (grep-find . 67)
  (elscreen-swap . 7)
  (find-grep . 1)
+ (rename-buffer . 3)
+ (shell . 3)
+ (toggle-word-wrap . 1)
+ (toggle-truncate-lines . 7)
+ (indent-region . 3)
+ (linum-mode . 6)
+ (ediff . 4)
+ (jedi:install-server . 2)
+ (server-force-delete . 1)
 )

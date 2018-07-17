@@ -3,14 +3,14 @@
 ;; ---------------------------------------------------------
 ;; jedi
 ;; ---------------------------------------------------------
-(require 'jedi)
+;;(require 'jedi)
 (require 'epc)
 (require 'python)
 
 (setq jedi:complete-on-dot t)
 
-(define-key jedi-mode-map (kbd "<C-tab>") 'jedi:complete)
-(define-key python-mode-map "\C-cd" 'jedi:goto-definition)
+;;(define-key jedi-mode-map (kbd "<C-tab>") 'jedi:complete)
+;;(define-key python-mode-map "\C-cd" 'jedi:goto-definition)
 
 ;; ---------------------------------------------------------
 ;; flycheck
@@ -42,5 +42,5 @@
              (setq python-indent 4)
              (setq python-default-offset 4)
              (setq tab-width 4)
-             (jedi:setup)
+             ;;(jedi:setup)
              ))
