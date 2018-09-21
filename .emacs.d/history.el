@@ -1,6 +1,20 @@
 ;; -*- coding: utf-8-unix -*-
 
 ;; ---------------------------------------------------------
+;; インクリメンタル検索
+;; ---------------------------------------------------------
+;; C-s (isearch-forward)
+;; C-r (isearch-backward)
+;; C-M-s (isearch-forward-regexp)
+;; C-M-r (isearch-backward-regexp)
+
+;; ---------------------------------------------------------
+;; 置換
+;; ---------------------------------------------------------
+;; M-% (query-replace)
+;; C-M-% (query-replace-regexp)
+
+;; ---------------------------------------------------------
 ;; enable to pop `mark-ring' repeatedly like C-u C-SPC C-SPC ...
 ;; http://d.hatena.ne.jp/kbkbkbkb1/20111205/1322988550
 ;; ---------------------------------------------------------
@@ -145,6 +159,15 @@
 (setq savehist-file "~/tmp/emacs/savehist")
 (setq history-length 1000)
 (savehist-mode 1)
+
+;; ---------------------------------------------------------
+;; undohist
+;; ---------------------------------------------------------
+;; ファイル保存後もヒストリを保存
+(require 'undohist)
+(setq undohist-directory "~/tmp/emacs/undohist")
+(setq undohist-ignored-files '("/tmp" "COMMIT_EDITMSG"))
+(undohist-initialize)
 
 ;; ---------------------------------------------------------
 ;; save-place

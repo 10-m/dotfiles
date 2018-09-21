@@ -1,73 +1,35 @@
 ;; -*- coding: utf-8-unix -*-
 
 ;; ---------------------------------------------------------
-;; anything-source
+;; helm
 ;; ---------------------------------------------------------
-;; オブジェクト選択、RETでデフォルト動作、TABでアクション指定
-(require 'anything)
-(require 'anything-config)
-(require 'anything-migemo)
-(require 'anything-match-plugin)
+(require 'helm-config)
+(require 'helm-c-moccur)
 
-(setq anything-c-adaptive-history-file "~/tmp/emacs/anything-c-adaptive-history")
+(global-set-key "\C-c;" 'helm-for-files)
 
-;; ライン移動
-(define-key anything-map (kbd "C-p") 'anything-previous-line)
-(define-key anything-map (kbd "C-n") 'anything-next-line)
+;; describe-bindingsをhelmで置き換え
+(helm-descbinds-mode)
 
-;; ソース移動
-(define-key anything-map (kbd "C-v") 'anything-next-source)
-(define-key anything-map (kbd "M-v") 'anything-previous-source)
+;; M-yにhelm-show-kill-ringを割り当てる
+(define-key global-map (kbd "M-y") 'helm-show-kill-ring)
 
-;; バッファ検索
-(setq anything-sources (list anything-c-source-buffers+
-                             anything-c-source-recentf
-                             anything-c-source-file-name-history
-                             anything-c-source-bookmarks
-                             anything-c-source-file-cache
-                             anything-c-source-locate))
-;; C-c ;        通常検索
-;; C-u C-c ;    Migemo検索
-(global-set-key "\C-cab" 'anything-migemo)
+;; moccur
+(helm-migemo-mode 1)
 
-;; プログラム検索
-(defun my-anything-program ()
-   "show source"
-   (interactive)
-   (let ((anything-sources (list anything-c-source-imenu
-                                 anything-c-source-occur
-                                 anything-c-source-semantic)))
-     (anything-at-point)))
-(global-set-key "\C-cap" 'my-anything-program)
+(setq helm-idle-delay 0.1
+      ;; helm-c-moccur用 `helm-idle-delay'
+      helm-c-moccur-helm-idle-delay 0.1
+      ;; バッファの情報をハイライトする
+      helm-c-moccur-higligt-info-line-flag t
+      ;; 現在選択中の候補の位置をほかのwindowに表示する
+      helm-c-moccur-enable-auto-look-flag t
+      ;; 起動時にポイントの位置の単語を初期パターンにする
+      helm-c-moccur-enable-initial-pattern t)
+(global-set-key (kbd "C-M-o") 'helm-c-moccur-occur-by-moccur)
 
-;; 辞書検索
-(defun my-anything-dict ()
-   "show source"
-   (interactive)
-   (let ((anything-sources (list anything-c-source-man-pages
-                                 anything-c-source-info-pages)))
-     (anything-at-point)))
-(global-set-key "\C-cad" 'my-anything-dict)
-
-;; ミニバッファ
-;; C-rでanything検索
-
-;; emacs検索
-(defun my-anything-emacs ()
-   "show source"
-   (interactive)
-   (let ((anything-sources (list anything-c-source-emacs-commands
-                                 anything-c-source-emacs-functions)))
-     (anything)))
-(global-set-key "\C-cae" 'my-anything-emacs)
-
-;; ---------------------------------------------------------
-;; anything-complete
-;; ---------------------------------------------------------
-(require 'anything-complete)
-
-;; C-c h シェルモードでヒストリ表示
-(define-key shell-mode-map "\C-cah" 'anything-complete-shell-history)
+(set-face-background 'helm-selection "yellow")
+(set-face-foreground 'helm-selection "black")
 
 ;; ---------------------------------------------------------
 ;; 定型句 abbrev
@@ -164,10 +126,12 @@
 (require 'auto-complete-config)
 (ac-config-default)
 (global-auto-complete-mode t)
+(setq ac-ignore-case nil)
 (add-to-list 'ac-modes 'text-mode)
 (setq ac-comphist-file "~/tmp/emacs/ac-comphist.dat")
 
 ;; C-n / C-p で選択
+;; C-sで検索可能
 (setq ac-use-menu-map t)
 
 (setq-default ac-sources
@@ -176,40 +140,23 @@
         ac-source-filename
         ac-source-dictionary
         ac-source-words-in-same-mode-buffers))
-
 (ac-set-trigger-key "TAB")
 
 ;; ---------------------------------------------------------
 ;; minibuffer completion
 ;; ---------------------------------------------------------
-;; (require 'ido-migemo-mode)
+(require 'ido-migemo)
 (ido-mode 1)
-;;(ido-migemo-mode 1)
+(ido-migemo-mode 1)
 (icomplete-mode t)
 (setq ido-save-directory-list-file "~/tmp/emacs/ido.last")
 
 (global-set-key (kbd "M-x") 'smex)
 (global-set-key (kbd "M-X") 'smex-major-mode-commands)
 
-
-;; ---------------------------------------------------------
-;; iswitchb バッファの切換えを楽にする
-;; ---------------------------------------------------------
-;; [使い方]
-;;! C-x b とすると，バッファの一覧がミニバッファに表示
-;;! C-s ， C-r でバッファの選択を切り替え
-;; (iswitchb-mode 1)
-
-;; ;; iswitchb で migemo
-;; (setq iswitchb-regexp t)
-;; (setq iswitchb-use-migemo-p t)
-;; (defadvice iswitchb-get-matched-buffers
-;;   (before iswitchb-use-migemo activate)
-;;   "iswitchb で migemo"
-;;   (when iswitchb-use-migemo-p
-;;     (ad-set-arg
-;;      0 (migemo-get-pattern
-;;         (ad-get-arg 0)))))
+;; C-x C-f ido-find-file
+;; C-f 通常のfind-file (ファイル作成などで使用)
+;; C-d diredで開く
 
 ;; ---------------------------------------------------------
 ;; other

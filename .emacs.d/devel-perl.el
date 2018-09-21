@@ -196,17 +196,17 @@
 ;; ---------------------------------------------------------
 ;; perl-completion
 ;; ---------------------------------------------------------
-(setq plcmp-use-keymap nil)
-(require 'perl-completion)
+;; (setq plcmp-use-keymap nil)
+;; (require 'perl-completion)
 
 ;; ドキュメント
 ;; plcmp-cmd-show-doc
 ;; plcmp-cmd-show-doc-at-point
-(define-key cperl-mode-map "\C-ccd" 'plcmp-cmd-show-doc)
+;; (define-key cperl-mode-map "\C-ccd" 'plcmp-cmd-show-doc)
 
 ;; モジュール補完
 ;; plcmp-cmd-complete-modules
-(define-key cperl-mode-map "\C-ccM" 'plcmp-cmd-complete-modules)
+;; (define-key cperl-mode-map "\C-ccM" 'plcmp-cmd-complete-modules)
 
 ;; メセッド補完
 ;; plcmp-cmd-complete-methods
@@ -214,19 +214,19 @@
 ;; メセッド補完 (smart-completion)
 ;; plcmp-cmd-smart-complete
 ;; $obj-> を補完
-(define-key cperl-mode-map "\C-ccm" 'plcmp-cmd-smart-complete)
+;; (define-key cperl-mode-map "\C-ccm" 'plcmp-cmd-smart-complete)
 
 ;; 関数補完
 ;; plcmp-cmd-complete-functions
-(define-key cperl-mode-map "\C-ccf" 'plcmp-cmd-complete-functions)
+;; (define-key cperl-mode-map "\C-ccf" 'plcmp-cmd-complete-functions)
 
 ;; 変数補完
 ;; plcmp-cmd-complete-variables
 ;; plcmp-cmd-complete-arrays
 ;; plcmp-cmd-complete-hashes
-(define-key cperl-mode-map "\C-ccv" 'plcmp-cmd-complete-variables)
-(define-key cperl-mode-map "\C-cca" 'plcmp-cmd-complete-arrays)
-(define-key cperl-mode-map "\C-cch" 'plcmp-cmd-complete-hashes)
+;; (define-key cperl-mode-map "\C-ccv" 'plcmp-cmd-complete-variables)
+;; (define-key cperl-mode-map "\C-cca" 'plcmp-cmd-complete-arrays)
+;; (define-key cperl-mode-map "\C-cch" 'plcmp-cmd-complete-hashes)
 
 ;; ---------------------------------------------------------
 ;; Hook

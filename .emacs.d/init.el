@@ -101,3 +101,20 @@
 
 ;; always end a file with a newline
 ;(setq require-final-newline 'query)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(company-idle-delay nil)
+ '(package-selected-packages
+   (quote
+    (yaml-mode auto-complete undohist ido-migemo helm-c-moccur helm-descbinds yasnippet wgrep undo-tree sr-speedbar smex shell-history recentf-ext py-yapf migemo mew markdown-mode magit js2-mode jedi helm google-this flycheck f expand-region ess elscreen color-moccur browse-kill-ring)))
+ '(yas-prompt-functions (quote (yas/dropdown-prompt))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(default ((t (:background "#111111" :foreground "#EEEEEE")))))
+

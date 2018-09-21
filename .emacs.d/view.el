@@ -174,38 +174,6 @@ See `font-lock-add-keywords' and `font-lock-defaults'."
 (autoload 'turn-on-iimage-mode "iimage" "Turn on Inline image minor mode." t)
 
 ;; ---------------------------------------------------------
-;; japanese-holiday.el
-;; ---------------------------------------------------------
-;; calendar を日本の祝祭日に合わせて使う。
-;; 20060829 現在、最新版は、下。
-;; http://www.meadowy.org/meadow/netinstall/browser/branches/3.00/pkginfo/japanese-holidays/japanese-holidays.el?rev=799
-(add-hook 'calendar-load-hook
-          (lambda ()
-            (require 'japanese-holidays)
-            (setq calendar-holidays
-                  (append japanese-holidays local-holidays other-holidays))))
-(setq mark-holidays-in-calendar t)
-
-;; “きょう”をマークするには以下の設定を追加します。
-(add-hook 'today-visible-calendar-hook 'calendar-mark-today)
-
-;; 日曜日を赤字にする場合、以下の設定を追加します。
-(setq calendar-weekend-marker 'diary)
-(add-hook 'today-visible-calendar-hook 'calendar-mark-weekend)
-(add-hook 'today-invisible-calendar-hook 'calendar-mark-weekend)
-
-;; 日曜日だけじゃなく、土曜にも色をつける。
-(setq calendar-weekend '(0 6))
-;; (make-face 'sunday-face)
-;; (set-face-foreground 'sunday-face "Tomato")
-;; (make-face 'saturday-face)
-;; (set-face-foreground 'saturday-face "LightBlue")
-;; (setq calendar-sunday-marker 'sunday-face)
-;; (setq calendar-saturday-marker 'saturday-face)
-;; (setq diary-entry-marker (quote bold-italic))
-;;(setq diary-file "~/howm/diary")
-
-;; ---------------------------------------------------------
 ;; font-lockの設定
 ;; ---------------------------------------------------------
 (load "font-lock")
@@ -234,8 +202,8 @@ See `font-lock-add-keywords' and `font-lock-defaults'."
         '((space-mark ?\u3000 [?\u25a1])))
 (set-face-attribute 'whitespace-tab nil
                     :foreground "blue"
-                    :background "blue"
-                    :underline nil)
+                    :background "black"
+                    :underline t)
 
 ;; ---------------------------------------------------------
 ;; Time

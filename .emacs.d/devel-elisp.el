@@ -30,4 +30,7 @@
 
              ;; デバッグコメント挿入
              (define-key (current-local-map) "\C-cp" 'my-insert-elisp-debug)
+
+             ;;
+             (flycheck-mode 0)
              ))

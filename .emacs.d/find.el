@@ -11,6 +11,7 @@
 ;; ---------------------------------------------------------
 ;; color-moccur
 ;; ---------------------------------------------------------
+;; M-x occur-by-moccur  カレントバッファを検索
 ;; M-x moccur-grep      grep のようにファイルを検索 (正規表現)
 ;; M-x moccur-grep-find
 ;;                      grep+find のようにファイルを検索 (正規表現)
@@ -31,13 +32,24 @@
 ;; C-c C-c か C-c C-f でも可能) とすると，色がついている変更のみが適用
 ;; すべての変更を適用したくない時には， C-x k (あるいは C-c C-k か C-c k
 ;; か C-c C-u でも可能)
+(require 'moccur-edit)
+
+;; moccur-edit-finish-editと同時にファイルを保存する
+(defadvice moccur-edit-change-file
+  (after save-after-moccur-edit-buffer activate)
+  (save-buffer))
 
 ;; ---------------------------------------------------------
-;; grep の検索結果を直接編集する
+;; wgrep
 ;; ---------------------------------------------------------
-;; http://www.bookshelf.jp/soft/meadow_51.html#SEC755
-;; M-x grep で検索後， grep のバッファを編集できます．編集すると，編集し
-;; た箇所の色が変わります．編集が終わったら， C-c C-e とすると色のついた
-;; 変更のみが適用されます．変更の破棄は， C-c C-u でできます．また，適用
-;; したくない変更をリージョンで選択し， C-c C-r とすると，リージョン内の
-;; 変更のみを破棄できます．
+(require 'wgrep nil t)
+
+;; r 編集開始
+(setf wgrep-enable-key "r")
+
+;; C-x C-xで保存
+;; C-x k で保存せずに終了
+(define-key wgrep-mode-map "\C-xk" 'wgrep-abort-changes)
+
+;;; wgrep終了時にバッファを保存
+(setq wgrep-auto-save-buffer t)

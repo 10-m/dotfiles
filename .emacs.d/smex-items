@@ -1,19 +1,19 @@
 
 ;; ----- smex-history -----
 (
- jedi:install-server
- server-force-delete
- toggle-truncate-lines
- grep-find
+ eval-expression
+ flycheck-verify-setup
+ flymake-mode
+ flycheck-info
  grep
- linum-mode
- ediff
+ describe-face
+ helm-shell-history
 )
 
 ;; ----- smex-data -----
 (
  (magit-status . 2)
- (grep . 44)
+ (grep . 87)
  (yas/reload-all . 4)
  (yas/expand . 1)
  (yas-expand . 9)
@@ -27,18 +27,46 @@
  (R-mode . 1)
  (ispell-region . 5)
  (ispell-buffer . 1)
- (untabify . 5)
- (replace-regexp . 5)
- (grep-find . 67)
+ (untabify . 7)
+ (replace-regexp . 10)
+ (grep-find . 115)
  (elscreen-swap . 7)
  (find-grep . 1)
- (rename-buffer . 3)
+ (rename-buffer . 4)
  (shell . 3)
  (toggle-word-wrap . 1)
- (toggle-truncate-lines . 7)
- (indent-region . 3)
- (linum-mode . 6)
+ (toggle-truncate-lines . 8)
+ (indent-region . 5)
+ (linum-mode . 7)
  (ediff . 4)
  (jedi:install-server . 2)
  (server-force-delete . 1)
+ (emacs-init-time . 1)
+ (emacs-uptime . 1)
+ (mark-paragraph . 1)
+ (eval-expression . 2)
+ (describe-variable . 1)
+ (helm-for-files . 3)
+ (package-install . 9)
+ (describe-key . 1)
+ (describe-bindings . 2)
+ (helm-c-moccur-occur-by-moccur . 2)
+ (helm-themes . 3)
+ (package-list-packages . 7)
+ (list-faces-display . 2)
+ (ido-find-file . 1)
+ (dired . 2)
+ (helm-mini . 2)
+ (occur . 1)
+ (occur-by-moccur . 3)
+ (wgrep-change-to-wgrep-mode . 1)
+ (moccur-grep . 2)
+ (uncomment-region . 1)
+ (multi-term . 1)
+ (eval-current-buffer . 18)
+ (helm-shell-history . 22)
+ (describe-face . 3)
+ (flycheck-info . 1)
+ (flymake-mode . 8)
+ (flycheck-verify-setup . 2)
 )

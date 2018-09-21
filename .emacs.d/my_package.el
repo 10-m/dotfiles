@@ -1,68 +1,79 @@
 ;; -*- coding: utf-8-unix -*-
 
-(add-to-list 'load-path "~/.emacs.d/mannual-libs")
-(add-to-list 'load-path "~/local/share/emacs/site-lisp/ess")
+(let ((default-directory (expand-file-name "~/.emacs.d/mannual-libs")))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
 
-(defconst my-elisp-directory "~/share/elisp" "The directory for my elisp file.")
-
-(dolist (dir (let ((dir1 (expand-file-name "~/.emacs.d/mannual-libs"))
-                   (dir2 (expand-file-name "~/local/share")))
-               (list dir1
-                     dir2
-                     (format "%s%d" dir1 emacs-major-version)
-                     (format "%s%d" dir2 emacs-major-version))))
-  (when (and (stringp dir) (file-directory-p dir))
-    (let ((default-directory dir))
-      (add-to-list 'load-path default-directory)
-      (normal-top-level-add-subdirs-to-load-path))))
+(let ((default-directory (expand-file-name "~/local/share/gtags")))
+  (add-to-list 'load-path default-directory)
+  (if (fboundp 'normal-top-level-add-subdirs-to-load-path)
+      (normal-top-level-add-subdirs-to-load-path)))
 
 ;; ---------------------------------------------------------
-;; El-get
+;; package.el
 ;; ---------------------------------------------------------
 ;; M-x el-get-update      パッケージを指定してアップデート
 ;; M-x el-get-upadate-all 全てアップデート
 
-(add-to-list 'load-path "~/.emacs.d/el-get/el-get")
-(unless (require 'el-get nil 'noerror)
-  (with-current-buffer
-      (url-retrieve-synchronously
-       "https://raw.githubusercontent.com/dimitri/el-get/master/el-get-install.el")
-    (goto-char (point-max))
-    (eval-print-last-sexp)))
-(add-to-list 'el-get-recipe-path "~/.emacs.d/el-get-user/recipes")
-;;(el-get 'sync)
+(require 'package)
 
-;; (add-to-list 'load-path "~/tmp/emacs/mb-url-master")
-;; (require 'mb-url-http)
-;; (advice-add 'url-http :override 'mb-url-http-curl)
+;; パッケージ情報の更新
+(package-refresh-contents)
 
-(el-get-bundle popup)
-(el-get-bundle auto-complete)
-(el-get-bundle elscreen)
-(el-get-bundle yasnippet)
-(el-get-bundle magit)
-(el-get-bundle undo-tree)
-(el-get-bundle color-moccur)
-(el-get-bundle moccur-edit)
-(el-get-bundle expand-region)
-(el-get-bundle s)
-(el-get-bundle f)
-(el-get-bundle migemo)
-(el-get-bundle mew)
-(el-get-bundle browse-kill-ring)
-(el-get-bundle anything)
-(el-get-bundle emacswiki:shell-history)
-(el-get-bundle emacswiki:perl-completion)
-(el-get-bundle sr-speedbar)
-(el-get-bundle google-this)
-(el-get-bundle js2-mode)
-(el-get-bundle flycheck)
-(el-get-bundle py-yapf)
-(el-get-bundle jedi)
-(el-get-bundle markdown-mode)
-(el-get-bundle smex)
-;(el-get-bundle sdic)
-;;(el-get-bundle myuhe/ido-migemo)
+;; MELPAを追加
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
-(setq recentf-save-file "~/tmp/emacs/recentf")
-(el-get-bundle recentf-ext)
+;; MELPA-stableを追加
+(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+
+;; Marmaladeを追加
+(add-to-list 'package-archives  '("marmalade" . "http://marmalade-repo.org/packages/") t)
+
+;; Orgを追加
+(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t)
+
+;; 初期化
+(package-initialize)
+
+(setq my/favorite-packages
+  '(popup
+    elscreen
+    yasnippet
+    magit
+    undo-tree
+    color-moccur
+    auto-complete
+    ;; moccur-edit
+    wgre
+    expand-region
+    s
+    f
+    migemo
+    mew
+    browse-kill-ring
+    helm
+    helm-descbinds
+    helm-c-moccur
+    ido-migemo
+    shell-history
+    sr-speedbar
+    google-this
+    js2-mode
+    flycheck
+    py-yapf
+    jedi
+    markdown-mode
+    smex
+    recentf-ext
+    undohist
+    ess
+    yaml-mode
+    ;; gtags
+    ))
+
+;; my/favorite-packagesからインストールしていないパッケージをインストール
+;; (package-refresh-contents)
+;; (dolist (package my/favorite-packages)
+;;   (unless (package-installed-p package)
+;;     (package-install package)))

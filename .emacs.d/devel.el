@@ -76,6 +76,7 @@
 ;; ---------------------------------------------------------
 (require 'flycheck)
 ;; M-x flycheck-mode  On/Off flycheck mode
+(global-flycheck-mode)
 
 (define-key global-map (kbd "\C-cfn") 'flycheck-next-error)
 (define-key global-map (kbd "\C-cfp") 'flycheck-previous-error)

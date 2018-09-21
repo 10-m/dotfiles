@@ -115,39 +115,6 @@
 ;(shell-command-completion-mode)
 
 ;; ---------------------------------------------------------
-;; Shell Mode Hook, Advice
-;; ---------------------------------------------------------
-(add-hook 'shell-mode-hook
-          (lambda ()
-            ;; C-aでプロンプトの先頭に移動
-            (define-key (current-local-map) "\C-a" 'comint-bol-or-process-mark)
-
-            ;; M-rでコマンド履歴インクリメンタルサーチ
-            (define-key shell-mode-map
-              [?\M-r] 'comint-previous-matching-input-from-input)
-
-            ;; font-lock をオフ
-            (font-lock-mode 0)
-
-            ;; linum モードをオフ
-            (linum-mode 0)
-
-            ;; コマンド確定時に色を変えない
-            ;; (set-face-foreground 'comint-highlight-input "pink")
-            ;; (set-face-foreground 'comint-highlight-prompt "green")
-            ))
-
-;; font-lock と linum をオフ (不完全)
-(defadvice shell (after my-shell-advice-after)
-  ;; font-lock をオフ
-  (font-lock-mode 0)
-
-  ;; linum モードをオフ
-  (linum-mode 0))
-(ad-enable-advice 'shell 'after 'my-shell-advice-after)
-(ad-activate 'shell)
-
-;; ---------------------------------------------------------
 ;; シェルトグル
 ;; ---------------------------------------------------------
 ;; shell-toggleは使わずに独自実装。以下はメモとして残しておく
@@ -312,3 +279,60 @@
 ;; http://d.hatena.ne.jp/syohex/20110418/1303138207
 ;; ~/bin/create_shell_elisp.pl > ~/tmp/shellenv.el
 ;; (load-file (expand-file-name "~/tmp/shellenv.el"))
+
+;; ---------------------------------------------------------
+;; helm
+;; ---------------------------------------------------------
+(require 'helm)
+(defun my/helm-shell-history-candidates ()
+  (let ((hist (shell-command-to-string "cat $HISTFILE | tail -n 10000 | uniq | sed 's/^: *[0-9]*:[0-9]*;//' | tac")))
+    (split-string hist "\n")
+  ))
+
+(defvar my/helm-shell-history-source
+  (helm-build-sync-source "Helm shell history"
+     :candidates #'my/helm-shell-history-candidates
+    :migemo t
+    :action 'insert))
+
+(defun helm-shell-history ()
+  (interactive)
+  (helm-migemo-mode +1)
+  (helm :sources '(my/helm-shell-history-source)
+        :buffer "*helm shell history*"))
+
+;; ---------------------------------------------------------
+;; Shell Mode Hook, Advice
+;; ---------------------------------------------------------
+(add-hook 'shell-mode-hook
+          (lambda ()
+            ;; C-aでプロンプトの先頭に移動
+            (define-key (current-local-map) "\C-a" 'comint-bol-or-process-mark)
+
+            ;; M-rでコマンド履歴インクリメンタルサーチ
+            (define-key shell-mode-map
+              [?\M-r] 'comint-previous-matching-input-from-input)
+
+            ;; font-lock をオフ
+            (font-lock-mode 0)
+
+            ;; linum モードをオフ
+            (linum-mode 0)
+
+            ;; コマンド確定時に色を変えない
+            ;; (set-face-foreground 'comint-highlight-input "pink")
+            ;; (set-face-foreground 'comint-highlight-prompt "green")
+
+            ;; helm
+            (define-key (current-local-map) "\C-c;" 'helm-shell-history)
+            ))
+
+;; font-lock と linum をオフ (不完全)
+(defadvice shell (after my-shell-advice-after)
+  ;; font-lock をオフ
+  (font-lock-mode 0)
+
+  ;; linum モードをオフ
+  (linum-mode 0))
+(ad-enable-advice 'shell 'after 'my-shell-advice-after)
+(ad-activate 'shell)
