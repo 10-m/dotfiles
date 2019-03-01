@@ -24,6 +24,8 @@ setopt print_eight_bit
 
 # C-s, C-qを無効にする。
 setopt NO_flow_control
+stty start undef
+stty stop undef
 
 # 新しいファイルのパーミッションは 644
 umask 022
@@ -60,19 +62,14 @@ alias ggraph='git log --graph --decorate --pretty=oneline --all --abbrev-commit'
 # 3秒以上かかった処理は詳細表示
 REPORTTIME=3
 
-# LANG設定。rootは常にLANG=C
+# LANG設定。rootは常にLANG=en_US
 case "$OS" in
     Windows* )
         export LANG=ja_JP.SJIS
     ;;
     *)
         export LANG=ja_JP.UTF-8
-    ;;
-esac
-
-case ${UID} in
-    0)
-        LANG=C
+        [ "0" = $UID ] && LANG=en_US.UTF-8
     ;;
 esac
 
@@ -103,10 +100,7 @@ setopt rm_star_wait
 
 # (グローバル)エイリアス
 # dircolors -p > .dir_colors + 色変更しておくこと
-if [ -r $HOME/.dir_colors ]
-then
-  eval "`dircolors -b $HOME/.dir_colors`"
-fi
+[ -r $HOME/.dir_colors ] && eval "`dircolors -b $HOME/.dir_colors`"
 alias ls='ls --time-style=long-iso --color=auto -F'
 
 #「dmesg lG CPU」と入力することで「dmesg | grep CPU」と同じ意味になる。
@@ -115,6 +109,7 @@ alias -g lL='| less '
 alias ..='cd ..'
 alias p='ps aux | head -1; ps aux | grep -i '
 alias free='free -m'
+alias du='du -h'
 alias df='df -h'
 alias h='history -E 1 | grep -i '
 alias rm='my_rm'
