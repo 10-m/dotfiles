@@ -75,6 +75,8 @@
 ;; flycheck
 ;; ---------------------------------------------------------
 (require 'flycheck)
+(setq flycheck-shellcheck-follow-sources nil)
+
 ;; M-x flycheck-mode  On/Off flycheck mode
 (global-flycheck-mode)
 
