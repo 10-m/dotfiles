@@ -246,15 +246,20 @@ function search() {
 # http://qiita.com/tmsanrinsha/items/72cebab6cd448704e366
 function peco-select-history() {
     local selection="$({
-        dirs -v | sed 's/^/DIR:/g';
         history -nr 1 | awk '!a[$0]++' | sed 's/^/HIST:/g';
-        } | peco --prompt '[DIR:/PROC:]')"
+        dirs -v | sed 's/^/DIR:/g';
+        ps aux | sed -e 's/^/PROC:/g' | awk 'NR>1{print $0}';
+        } | peco --initial-filter Regexp --prompt '[HIST:/DIR:/PROC]')"
     if [[ "$selection" =~ '^DIR:' ]]; then
         local back="$(echo $selection | sed 's/^DIR://g' | cut -f 1)"
         cd +"${back}" > /dev/null
     elif [[ "$selection" =~ '^HIST:' ]]; then
         local BUFFER="$(echo $selection | sed 's/^HIST://g')"
         CURSOR=$#BUFFER # カーソルを文末に移動
+    elif [[ "$selection" =~ '^PROC:' ]]; then
+        local BUFFER="$(echo $selection | sed 's/^PROC://g' | awk '{print $2}' | tr '\n' ' ')"
+    else
+        echo "unknown slection $selection"
     fi
     zle reset-prompt
 }
@@ -466,8 +471,13 @@ local RETURN=$'\n'
 # 元々はプロンプト ($ or #) だったが、 tramp のため変更
 local RESULT="%(?.$YELLOW.$RED)"
 
-# ドットをアンダーバーにしておく
+# ドットをアンダーバーにしておく + SSH接続の時色を変える
 local MY_HOST=${HOST/\./_}
+if [ -n "${REMOTEHOST}${SSH_CONNECTION}" ]; then
+    MY_HOST=$GREEN$MY_HOST
+else
+    MY_HOST=$CYAN$MY_HOST
+fi
 
 # バージョン表示
 # http://d.hatena.ne.jp/mollifier/20090814/p1
@@ -491,7 +501,7 @@ local VERSION="%1(v|%F{green}%1v%f|)"
 local MARK="%(!.# .\$)"
 local _USERNAME="%(!.$RED$USERNAME.$USERNAME)"
 
-PROMPT=$CYAN'['$_USERNAME$RESULT'@'$CYAN$MY_HOST':'$YELLOW'%~'$CYAN']'$VERSION$DEFAULT$RETURN$MARK' '
+PROMPT=$CYAN'['$_USERNAME$RESULT'@'$MY_HOST':'$YELLOW'%~'$CYAN']'$VERSION$DEFAULT$RETURN$MARK' '
 setopt PROMPT_SUBST
 
 # case $TERM in
