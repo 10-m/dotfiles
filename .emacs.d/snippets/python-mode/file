@@ -1,0 +1,9 @@
+#name : open ... read
+# --
+import re
+
+file = '${1:tmp.txt}';
+with open(file, 'r') as fd:
+    for line in fd:
+        line = re.sub('\r?\n?$', '', line)
+        $0print(line)

@@ -369,6 +369,9 @@ When second argument is 't', global variable is modified"
 ;; http://wassr.jp/user/dummy/statuses/B50uQibW2u
 ;;
 ;; [使い方]
+;; C-c |
+;;  タブ区切りをtableに変換
+;;
 ;; M-x table-insert
 ;;  テーブルを挿入する。ミニバッファにカラム数なとが問われる
 ;;  Number of columns (default 3): (横方向のセル数)
