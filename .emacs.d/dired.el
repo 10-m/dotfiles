@@ -103,6 +103,11 @@
            (lambda (arg) (interactive "P")
          (let ((dired-dwim-target t)) (dired-do-rename arg))))
 
+         ;; M-s 他の window に symlink
+         (define-key (current-local-map) "\M-s"
+           (lambda (arg) (interactive "P")
+         (let ((dired-dwim-target t)) (dired-do-symlink arg))))
+
          ;; C-c w wdired-change-to-wdired-mode
          (define-key (current-local-map) "\C-cw" 'wdired-change-to-wdired-mode)
 

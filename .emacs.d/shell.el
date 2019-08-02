@@ -200,7 +200,7 @@
         ("\\.rb\\'"                "ruby")
         ("\\.py\\'"                "python3")
         ("\\.mk\\|Makefile\\'"     "make -f")
-        ("\\.js\\'"                "cscript")
+        ("\\.js\\'"                "node")
         ("\\.dot\\'"               "dot -Tgif"  " -o tmp.gif && (display tmp.gif &)")
         ("\\.pic\\'"               "pic2png.sh" " tmp.png && (display tmp.png &)")
         ("\\.mp\\'"                "mp2png.sh")

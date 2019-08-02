@@ -1,19 +1,19 @@
 
 ;; ----- smex-history -----
 (
- eval-expression
- flycheck-verify-setup
- flymake-mode
- flycheck-info
+ toggle-truncate-lines
+ grep-find
+ rename-buffer
  grep
- describe-face
- helm-shell-history
+ linum-mode
+ ediff-buffers
+ ediff
 )
 
 ;; ----- smex-data -----
 (
  (magit-status . 2)
- (grep . 87)
+ (grep . 324)
  (yas/reload-all . 4)
  (yas/expand . 1)
  (yas-expand . 9)
@@ -28,17 +28,17 @@
  (ispell-region . 5)
  (ispell-buffer . 1)
  (untabify . 7)
- (replace-regexp . 10)
- (grep-find . 115)
+ (replace-regexp . 11)
+ (grep-find . 116)
  (elscreen-swap . 7)
  (find-grep . 1)
- (rename-buffer . 4)
+ (rename-buffer . 12)
  (shell . 3)
  (toggle-word-wrap . 1)
- (toggle-truncate-lines . 8)
- (indent-region . 5)
- (linum-mode . 7)
- (ediff . 4)
+ (toggle-truncate-lines . 90)
+ (indent-region . 6)
+ (linum-mode . 12)
+ (ediff . 5)
  (jedi:install-server . 2)
  (server-force-delete . 1)
  (emacs-init-time . 1)
@@ -69,4 +69,7 @@
  (flycheck-info . 1)
  (flymake-mode . 8)
  (flycheck-verify-setup . 2)
+ (comment-region . 1)
+ (tooltip-mode . 1)
+ (ediff-buffers . 1)
 )
