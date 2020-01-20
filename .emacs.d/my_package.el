@@ -13,8 +13,8 @@
 ;; ---------------------------------------------------------
 ;; package.el
 ;; ---------------------------------------------------------
-;; M-x el-get-update      パッケージを指定してアップデート
-;; M-x el-get-upadate-all 全てアップデート
+;; M-x package-install      パッケージを指定してアップデート
+;; M-x package-refresh-contents パッケージ情報を更新
 
 (require 'package)
 
@@ -69,6 +69,7 @@
     undohist
     ess
     yaml-mode
+    helm-c-yasnippet
     ;; gtags
     ))
 

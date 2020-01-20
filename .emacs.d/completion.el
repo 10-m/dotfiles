@@ -92,6 +92,12 @@
 ;; [メモ]
 ;; テンプレート作成している最中に、C-c C-t で動作テストできる
 
+(require 'helm-c-yasnippet)
+(setq helm-yas-space-match-any-greedy t)
+(global-set-key (kbd "C-c y") 'helm-yas-complete)
+(push '("emacs.+/snippets/" . snippet-mode) auto-mode-alist)
+(yas-global-mode 1)
+
 ;; ---------------------------------------------------------
 ;; 動的略語展開 dabbrev
 ;; ---------------------------------------------------------
