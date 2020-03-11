@@ -1,0 +1,10 @@
+#name : concat
+# --
+import glob
+import pandas as pd
+
+glob_str = '${1:*.txt}'
+df_list = []
+for file in sorted(glob.glob(glob_str)):
+    df_list.append(pd.read_csv(file, delimiter='\t'))
+df = pd.concat(df_list)
