@@ -1,7 +1,5 @@
 #name : open ... read
 # --
-import re
-
 file = '${1:tmp.txt}';
 with open(file, 'r', encoding='utf-8') as fd:
     for line in fd:
