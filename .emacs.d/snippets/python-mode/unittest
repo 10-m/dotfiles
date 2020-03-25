@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
 # name: unittest
-# key: t
 # group: definitions
 # --
 import unittest
+from unittest import mock
 
 class ${1:XXXTest}(unittest.TestCase):
     @classmethod

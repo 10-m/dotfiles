@@ -1,6 +1,5 @@
 # -*- mode: snippet -*-
 # name: class
-# key: c
 # group: definitions
 # --
 class ${1:Test}:
