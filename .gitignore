@@ -12,3 +12,6 @@ el-get/
 #*#
 .python-environments
 .emacs.d/url/
+.emacs.d/abbrev_defs
+.emacs.d/kkcrc
+.emacs.d/old/
