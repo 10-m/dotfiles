@@ -97,6 +97,9 @@
 ;; 行間指定
 (setq-default line-spacing 0.2)
 
+;; 縦分割防止
+(setq split-width-threshold nil)
+
 ;; ---------------------------------------------------------
 ;; font-lock-user-keywords
 ;; http://d.hatena.ne.jp/buzztaiki/20111209/1323444755
