@@ -15,3 +15,4 @@ el-get/
 .emacs.d/abbrev_defs
 .emacs.d/kkcrc
 .emacs.d/old/
+.emacs.d/smex-items
