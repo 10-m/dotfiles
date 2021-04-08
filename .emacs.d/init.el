@@ -120,3 +120,4 @@
  '(cursor ((((class color) (background dark)) (:background "#2e8b57")) (((class color) (background light)) (:background "#999999")) (t nil)))
  '(woman-bold ((t (:foreground "yellow")))))
 
+(put 'upcase-region 'disabled nil)
