@@ -6,4 +6,4 @@ for file in glob.glob('${1:*/*.py}'):
     with open(file, 'r', encoding='utf-8') as fd:
         for line in fd:
             line = line.rstrip()
-                $0print(line)
+            $0print(line)
